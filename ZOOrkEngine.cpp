@@ -39,6 +39,11 @@ void ZOOrkEngine::run() {
             handleQuitCommand(arguments);
         } else if (command == "examine") {
             handleExamineCommand(arguments);
+        } else if (command == "read") {
+            handleReadCommand(arguments);
+        } else if (command == "talk" && arguments.size() > 1 && arguments[0] == "to") {
+            std::vector<std::string> talkArguments(words.begin() + 2, words.end());
+            handleTalkCommand(talkArguments);
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -177,26 +182,59 @@ std::string ZOOrkEngine::makeLowercase(std::string input) {
     return output;
 }
 
+std::string ZOOrkEngine::concatenateArguments(const std::vector<std::string>& arguments) {
+    std::string result;
+    for (const std::string& arg : arguments) {
+        if (!result.empty()) {
+            result += " ";
+        }
+        result += arg;
+    }
+    return result;
+}
+
+
 void ZOOrkEngine::handleExamineCommand(std::vector<std::string> arguments) {
-    if (arguments.empty()) {
+    std::string object = concatenateArguments(arguments);
+
+    if (object.empty()) {
         std::cout << "Examine what?\n";
         return;
     }
 
-    std::string object;
-    for (const std::string& arg : arguments) {
-        if (!object.empty()) {
-            object += " ";
-        }
-        object += arg;
-    }
     std::transform(object.begin(), object.end(), object.begin(), ::tolower);
 
     if (object == "door") {
         std::cout << "The door is locked, and there's a keypad next to it.\n";
-    } else if (object == "guard" || object == "security guard") {
-        std::cout << "The security guard is snoring loudly, oblivious to your presence.\n";
+    } else if (object == "toolbox") {
+        std::cout << "It's unlocked and contains a rope, a sturdy belt, and a note.\n";
     } else {
         std::cout << "You examine the " << object << ".\n";
+    }
+}
+
+
+void ZOOrkEngine::handleReadCommand(std::vector<std::string> arguments) {
+    std::string object = concatenateArguments(arguments);
+
+    std::transform(object.begin(), object.end(), object.begin(), ::tolower);
+
+    if (object == "note") {
+        std::cout << "The note contains a riddle, the answer to which is the code for the door's keypad.\n";
+    } else {
+        std::cout << "You attempt to read " << object << ", but you fail to understand it.\n";
+    }
+}
+
+
+void ZOOrkEngine::handleTalkCommand(std::vector<std::string> arguments) {
+    std::string target = concatenateArguments(arguments);
+
+    std::transform(target.begin(), target.end(), target.begin(), ::tolower);
+
+    if (target == "guard" || target == " security guard") {
+        std::cout << "(Wakes up, groggy) 'Hey, you're not supposed to be down here! Get out before I call...' (Falls back asleep).\n";
+    } else {
+        std::cout << "You attempt to talk to " << target << ", but there is no response.\n";
     }
 }

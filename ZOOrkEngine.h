@@ -37,6 +37,12 @@ private:
 
     void handleExamineCommand(std::vector<std::string>);
 
+    void handleReadCommand(std::vector<std::string>);
+
+    void handleTalkCommand(std::vector<std::string>);
+
+    std::string concatenateArguments(const std::vector<std::string>&);
+
     static std::vector<std::string> tokenizeString(const std::string&);
 
     static std::string makeLowercase(std::string);
