@@ -11,6 +11,7 @@
 #include "Location.h"
 #include <map>
 #include <memory>
+#include <functional>
 
 class Passage;
 
@@ -36,12 +37,17 @@ public:
 
     std::shared_ptr<Passage> getPassage(const std::string &);
 
+    void addCommand(const std::string& command, std::function<void()> action);
+    void executeCommand(const std::string& command);
+
 protected:
     std::map<std::string, std::shared_ptr<Passage>> passageMap;
     std::map<std::string, std::shared_ptr<Item>> items; // Stores items by name
 
 //    std::vector<Item*> items;
 //    std::vector<Character*> characters;
+
+    std::map<std::string, std::function<void()>> commands;
     
 };
 

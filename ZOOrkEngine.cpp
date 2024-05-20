@@ -37,11 +37,14 @@ void ZOOrkEngine::run() {
             handleDropCommand(arguments);
         } else if (command == "quit") {
             handleQuitCommand(arguments);
+        } else if (command == "examine") {
+            handleExamineCommand(arguments);
         } else {
             std::cout << "I don't understand that command.\n";
         }
     }
 }
+
 
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     std::string direction;
@@ -172,4 +175,28 @@ std::string ZOOrkEngine::makeLowercase(std::string input) {
                    [](unsigned char c) -> unsigned char { return std::tolower(c); });
 
     return output;
+}
+
+void ZOOrkEngine::handleExamineCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Examine what?\n";
+        return;
+    }
+
+    std::string object;
+    for (const std::string& arg : arguments) {
+        if (!object.empty()) {
+            object += " ";
+        }
+        object += arg;
+    }
+    std::transform(object.begin(), object.end(), object.begin(), ::tolower);
+
+    if (object == "door") {
+        std::cout << "The door is locked, and there's a keypad next to it.\n";
+    } else if (object == "guard" || object == "security guard") {
+        std::cout << "The security guard is snoring loudly, oblivious to your presence.\n";
+    } else {
+        std::cout << "You examine the " << object << ".\n";
+    }
 }

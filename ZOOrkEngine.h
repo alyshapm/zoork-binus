@@ -35,9 +35,13 @@ private:
 
     void handleQuitCommand(std::vector<std::string>);
 
+    void handleExamineCommand(std::vector<std::string>);
+
     static std::vector<std::string> tokenizeString(const std::string&);
 
     static std::string makeLowercase(std::string);
+
+    std::shared_ptr<Room> currentRoom;
 };
 
 

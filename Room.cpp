@@ -63,3 +63,16 @@ std::shared_ptr<Item> Room::retrieveItem(const std::string& name) {
     }
     return nullptr;
 }
+
+void Room::addCommand(const std::string& command, std::function<void()> action) {
+    commands[command] = action;
+}
+
+void Room::executeCommand(const std::string& command) {
+    auto it = commands.find(command);
+    if (it != commands.end()) {
+        it->second();
+    } else {
+        std::cout << "Unknown command in room: " << command << std::endl;
+    }
+}
