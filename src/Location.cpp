@@ -3,6 +3,7 @@
 //
 
 #include "Location.h"
+#include "NullCommand.h"
 
 #include <memory>
 

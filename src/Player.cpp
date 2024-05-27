@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "Room.h"
 #include <iostream>
 
 Player *Player::playerInstance = nullptr;

@@ -1,12 +1,8 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
-
 #include "ZOOrkEngine.h"
 
 #include <utility>
-#include <algorithm> // Required for std::transform
-#include <cctype>     // Required for std::tolower
+#include <algorithm> 
+#include <cctype>    
 #include <memory>
 
 
@@ -50,7 +46,6 @@ void ZOOrkEngine::run() {
     }
 }
 
-
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     std::string direction;
     if (arguments[0] == "n" || arguments[0] == "north") {
@@ -74,12 +69,6 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     player->setCurrentRoom(passage->getTo());
     passage->enter();
 }
-
-// void ZOOrkEngine::handleLookCommand(std::vector<std::string> arguments) {
-//     // To be implemented
-//     std::cout << "This functionality is not yet enabled.\n";
-// }
-
 
 void ZOOrkEngine::handleLookCommand(const std::vector<std::string>& arguments) {
     Room* currentRoom = player->getCurrentRoom();
@@ -107,12 +96,6 @@ void ZOOrkEngine::handleLookCommand(const std::vector<std::string>& arguments) {
     }
 }
 
-
-// void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
-//     // To be implemented
-//     std::cout << "This functionality is not yet enabled.\n";
-// }
-
 void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
     if (arguments.empty()) {
         std::cout << "Take what?\n";
@@ -127,12 +110,6 @@ void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
         std::cout << "No such item.\n";
     }
 }
-
-
-// void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
-//     // To be implemented
-//     std::cout << "This functionality is not yet enabled.\n";
-// }
 
 void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
     if (arguments.empty()) {
@@ -149,7 +126,6 @@ void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
     }
 }
 
-
 void ZOOrkEngine::handleQuitCommand(std::vector<std::string> arguments) {
     std::string input;
     std::cout << "Are you sure you want to QUIT?\n> ";
@@ -159,6 +135,21 @@ void ZOOrkEngine::handleQuitCommand(std::vector<std::string> arguments) {
     if (quitStr == "y" || quitStr == "yes") {
         gameOver = true;
     }
+}
+
+void ZOOrkEngine::handleExamineCommand(std::vector<std::string> arguments) {
+    std::string object = concatenateArguments(arguments);
+    player->getCurrentRoom()->executeCommand("examine " + object);
+}
+
+void ZOOrkEngine::handleReadCommand(std::vector<std::string> arguments) {
+    std::string object = concatenateArguments(arguments);
+    player->getCurrentRoom()->executeCommand("read " + object);
+}
+
+void ZOOrkEngine::handleTalkCommand(std::vector<std::string> arguments) {
+    std::string object = concatenateArguments(arguments);
+    player->getCurrentRoom()->executeCommand("talk " + object);
 }
 
 std::vector<std::string> ZOOrkEngine::tokenizeString(const std::string &input) {
@@ -191,50 +182,4 @@ std::string ZOOrkEngine::concatenateArguments(const std::vector<std::string>& ar
         result += arg;
     }
     return result;
-}
-
-
-void ZOOrkEngine::handleExamineCommand(std::vector<std::string> arguments) {
-    std::string object = concatenateArguments(arguments);
-
-    if (object.empty()) {
-        std::cout << "Examine what?\n";
-        return;
-    }
-
-    std::transform(object.begin(), object.end(), object.begin(), ::tolower);
-
-    if (object == "door") {
-        std::cout << "The door is locked, and there's a keypad next to it.\n";
-    } else if (object == "toolbox") {
-        std::cout << "It's unlocked and contains a rope, a sturdy belt, and a note.\n";
-    } else {
-        std::cout << "You examine the " << object << ".\n";
-    }
-}
-
-
-void ZOOrkEngine::handleReadCommand(std::vector<std::string> arguments) {
-    std::string object = concatenateArguments(arguments);
-
-    std::transform(object.begin(), object.end(), object.begin(), ::tolower);
-
-    if (object == "note") {
-        std::cout << "The note contains a riddle, the answer to which is the code for the door's keypad.\n";
-    } else {
-        std::cout << "You attempt to read " << object << ", but you fail to understand it.\n";
-    }
-}
-
-
-void ZOOrkEngine::handleTalkCommand(std::vector<std::string> arguments) {
-    std::string target = concatenateArguments(arguments);
-
-    std::transform(target.begin(), target.end(), target.begin(), ::tolower);
-
-    if (target == "guard" || target == " security guard") {
-        std::cout << "(Wakes up, groggy) 'Hey, you're not supposed to be down here! Get out before I call...' (Falls back asleep).\n";
-    } else {
-        std::cout << "You attempt to talk to " << target << ", but there is no response.\n";
-    }
 }

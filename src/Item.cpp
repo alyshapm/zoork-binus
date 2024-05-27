@@ -3,7 +3,7 @@
 //
 
 #include "Item.h"
-
+#include "NullCommand.h"
 #include <utility>
 #include <memory>
 

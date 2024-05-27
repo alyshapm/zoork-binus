@@ -5,7 +5,6 @@
 #ifndef ZOORK_PASSAGE_H
 #define ZOORK_PASSAGE_H
 
-#include "NullRoom.h"
 #include "Room.h"
 #include <iostream>
 

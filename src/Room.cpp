@@ -1,13 +1,14 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
-
 #include "NullPassage.h"
 #include "Room.h"
 #include "Item.h"
 
 #include <utility>
 #include <memory>
+#include <iterator>
+#include <sstream>
+#include <vector>
+#include <string>
+
 
 Room::Room(const std::string &n, const std::string &d) : Location(n, d) {
     enterCommand = std::make_shared<RoomDefaultEnterCommand>(this);
@@ -64,15 +65,59 @@ std::shared_ptr<Item> Room::retrieveItem(const std::string& name) {
     return nullptr;
 }
 
-void Room::addCommand(const std::string& command, std::function<void()> action) {
-    commands[command] = action;
+void Room::executeCommand(const std::string& command) {
+    std::istringstream iss(command);
+    std::vector<std::string> tokens(std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>());
+
+    if (tokens.empty()) {
+        std::cout << "Invalid command\n";
+        return;
+    }
+
+    std::string mainCommand = tokens[0];
+    std::string object = (tokens.size() > 1) ? tokens[1] : ""; // Extract the object if provided
+
+    // Now handle the command and object appropriately
+    if (mainCommand == "examine") {
+        handleExamine(object);
+    } else if (mainCommand == "talk") {
+        handleTalk(object);
+    } else if (mainCommand == "read") {
+        handleRead(object);
+    } else {
+        std::cout << "Unknown command: " << mainCommand << std::endl;
+    }
 }
 
-void Room::executeCommand(const std::string& command) {
-    auto it = commands.find(command);
-    if (it != commands.end()) {
-        it->second();
-    } else {
-        std::cout << "Unknown command in room: " << command << std::endl;
-    }
+
+void Room::handleExamine(const std::string& object) const {
+    std::cout << "You examine the " << object << ".\n";
+}
+
+void Room::handleTalk(const std::string& object) const {
+    std::cout << "You attempt to talk to " << object << ".\n";
+}
+
+void Room::handleFight(const std::string& object) const {
+    std::cout << "You engage in combat with " << object << ".\n";
+}
+
+void Room::handleRead(const std::string& object) const {
+    std::cout << "You read " << object << ".\n";
+}
+
+void Room::handleDrink(const std::string& object) const {
+    std::cout << "You drink " << object << ".\n";
+}
+
+void Room::handleClimb(const std::string& object) const {
+    std::cout << "You attempt to climb " << object << ".\n";
+}
+
+void Room::handleEscape(const std::string& object) const {
+    std::cout << "You try to escape " << object << ".\n";
+}
+
+void Room::handleGo(const std::string& object) const {
+    std::cout << "You try to go " << object << ".\n";
 }

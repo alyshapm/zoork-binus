@@ -1,7 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
-
 #ifndef ZOORK_ROOM_H
 #define ZOORK_ROOM_H
 
@@ -26,11 +22,6 @@ public:
    std::shared_ptr<Item> getItem(const std::string&);
    std::shared_ptr<Item> retrieveItem(const std::string& name);
 
-//    Item* retrieveItem(const std::string&);
-//    void addCharacter(Character*);
-//    void removeCharacter(const std::string&);
-//    Character* getCharacter(const std::string&);
-
     void addPassage(const std::string &, std::shared_ptr<Passage>);
 
     void removePassage(const std::string &);
@@ -39,17 +30,20 @@ public:
 
     void addCommand(const std::string& command, std::function<void()> action);
     void executeCommand(const std::string& command);
-
-protected:
-    std::map<std::string, std::shared_ptr<Passage>> passageMap;
-    std::map<std::string, std::shared_ptr<Item>> items; // Stores items by name
-
-//    std::vector<Item*> items;
-//    std::vector<Character*> characters;
-
-    std::map<std::string, std::function<void()>> commands;
     
+private:
+    std::map<std::string, std::shared_ptr<Passage>> passageMap;
+    std::map<std::string, std::shared_ptr<Item>> items;
+
+    // Define specific functions for interactions
+    virtual void handleExamine(const std::string& object) const;
+    virtual void handleTalk(const std::string& object) const;
+    virtual void handleFight(const std::string& object) const;
+    virtual void handleRead(const std::string& object) const;
+    virtual void handleDrink(const std::string& object) const;
+    virtual void handleClimb(const std::string& object) const;
+    virtual void handleEscape(const std::string& object) const;
+    virtual void handleGo(const std::string& object) const;
 };
 
-
-#endif //ZOORK_ROOM_H
+#endif // ZOORK_ROOM_H
