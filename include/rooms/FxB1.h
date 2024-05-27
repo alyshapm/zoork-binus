@@ -12,6 +12,7 @@ public:
     "A steel door blocks your exit.") {}
     
     void handleExamine(const std::string& object) const override;
+    void handleTalk(const std::string& object) const override;
     void handleRead(const std::string& object) const override;
 };
 

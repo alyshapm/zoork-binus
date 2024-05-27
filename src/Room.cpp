@@ -75,7 +75,13 @@ void Room::executeCommand(const std::string& command) {
     }
 
     std::string mainCommand = tokens[0];
-    std::string object = (tokens.size() > 1) ? tokens[1] : ""; // Extract the object if provided
+    std::string object;
+    if (tokens.size() > 1) {
+        object = tokens[1];
+        for (size_t i = 2; i < tokens.size(); ++i) {
+            object += " " + tokens[i];
+        }
+    }
 
     // Now handle the command and object appropriately
     if (mainCommand == "examine") {

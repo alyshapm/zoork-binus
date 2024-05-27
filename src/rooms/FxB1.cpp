@@ -12,9 +12,17 @@ void FxB1::handleExamine(const std::string& object) const {
     }
 }
 
+void FxB1::handleTalk(const std::string& object) const {
+    if (object == "security guard" || object == "guard") {
+        std::cout << "(Wakes up, groggy) 'Hey, you're not supposed to be down here! Get out before I call...' (Falls back asleep)\n";
+    } else {
+        std::cout << "You talk to the " << object << ", but are answered with silence.\n";
+    }
+}
+
 void FxB1::handleRead(const std::string& object) const {
     if (object == "note") {
-        std::cout << " (The note contains a riddle, the answer to which is the code for the door's keypad)\n";
+        std::cout << "(The note contains a riddle, the answer to which is the code for the door's keypad)\n";
     } else {
         std::cout << "You read the " << object << ", but find yourself unable to understand it.\n";
     }
