@@ -10,7 +10,7 @@ public:
     FxB1() : Room("FX B1",
     "You find yourself in the dimly lit basement of BINUS FX.\n"
     "The air is damp, and the only sound is the faint hum of electrical equipment.\n"
-    "A steel door blocks your exit.") {correctPasscode = generateRandomPasscode();}
+    "A steel door blocks your exit.") {}
 
     void handleExamine(const std::string& object) const override;
     void handleTalk(const std::string& object) const override;
@@ -21,7 +21,7 @@ public:
     mutable int remainingAttempts = 2;
     std::string correctPasscode;
 
-    std::string generateRandomPasscode() const {
+    std::string generateRandomPasscode() {
         // Define the range of characters for the passcode
         const std::string passcodeChars = "0123456789";
         const int passcodeLength = 6;
@@ -36,7 +36,7 @@ public:
         for (int i = 0; i < passcodeLength; ++i) {
             passcode += passcodeChars[dis(gen)];
         }
-        std::cout << correctPasscode << std::endl;
+
         return passcode;
     }
 };
