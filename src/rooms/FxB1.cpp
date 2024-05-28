@@ -34,17 +34,19 @@ void FxB1::handleRead(const std::string& object) const {
     if (object == "note") {
         if (correctPasscode.size() != 6) {
             std::cerr << "Error: Passcode length is incorrect.\n";
-            return;
+            std::cout << correctPasscode;
         }
-        
+
         std::cout << "Shopping List:\n\n"
-                  << "- " << correctPasscode[0] << " ripe apples, a tart delight\n"
-                  << "- " << correctPasscode[1] << " juicy oranges, bursting with sunlight\n"
-                  << "- " << correctPasscode[2] << " plump tomatoes, firm to the touch\n"
-                  << "- " << correctPasscode[3] << " crisp carrots, offering a healthy crunch\n"
-                  << "- " << correctPasscode[4] << " sweet mangoes, a tropical treat\n"
-                  << "- " << correctPasscode[5] << " vibrant peppers, adding a spicy heat\n\n"
+                  << "-" << correctPasscode[0] << " ripe apples, a tart delight\n"
+                  << "-" << correctPasscode[1] << " juicy oranges, bursting with sunlight\n"
+                  << "-" << correctPasscode[2] << " plump tomatoes, firm to the touch\n"
+                  << "-" << correctPasscode[3] << " crisp carrots, offering a healthy crunch\n"
+                  << "-" << correctPasscode[4] << " sweet mangoes, a tropical treat\n"
+                  << "-" << correctPasscode[5] << " vibrant peppers, adding a spicy heat\n\n"
                   << "The fruits will open the way to a new realm.\n";
+
+        return;
     } else {
         std::cout << "You read the " << object << ", but find yourself unable to understand it.\n";
     }

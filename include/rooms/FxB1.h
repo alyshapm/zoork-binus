@@ -10,14 +10,14 @@ public:
     FxB1() : Room("FX B1",
     "You find yourself in the dimly lit basement of BINUS FX.\n"
     "The air is damp, and the only sound is the faint hum of electrical equipment.\n"
-    "A steel door blocks your exit.") {}
+    "A steel door blocks your exit.") { correctPasscode = generateRandomPasscode(); }
 
     void handleExamine(const std::string& object) const override;
     void handleTalk(const std::string& object) const override;
     void handleRead(const std::string& object) const override;
     void handleEnterPasscode(const std::string& passcode) const;
 
-    private:
+private:
     mutable int remainingAttempts = 2;
     std::string correctPasscode;
 
