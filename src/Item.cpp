@@ -1,7 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
-
 #include "Item.h"
 #include "NullCommand.h"
 #include <utility>
@@ -14,7 +10,11 @@ Item::Item(const std::string &n, const std::string &d, std::shared_ptr<Command> 
                                                                                      useCommand(std::move(c)) {}
 
 void Item::use() {
-    useCommand->execute();
+    if (useCommand) {
+        useCommand->execute();
+    } else {
+        std::cout << "You can't use that.\n";
+    }
 }
 
 void Item::setUseCommand(std::shared_ptr<Command> c) {

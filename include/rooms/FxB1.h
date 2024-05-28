@@ -10,7 +10,11 @@ public:
     FxB1() : Room("FX B1",
     "You find yourself in the dimly lit basement of BINUS FX.\n"
     "The air is damp, and the only sound is the faint hum of electrical equipment.\n"
-    "A steel door blocks your exit.") { correctPasscode = generateRandomPasscode(); }
+    "A steel door blocks your exit.") { 
+        correctPasscode = generateRandomPasscode();
+        auto crowbar = std::make_shared<Item>("Crowbar", "A sturdy crowbar, it looks useful for prying things open.");
+        addItem(crowbar);
+        }
 
     void handleExamine(const std::string& object) const override;
     void handleTalk(const std::string& object) const override;
@@ -18,7 +22,7 @@ public:
     void handleEnterPasscode(const std::string& passcode) const;
 
 private:
-    mutable int remainingAttempts = 2;
+    mutable int remainingAttempts = 3;
     std::string correctPasscode;
 
     std::string generateRandomPasscode() {

@@ -38,6 +38,7 @@ private:
     void handleTalkCommand(std::vector<std::string> arguments);
     void handleRestartCommand(std::vector<std::string> arguments);
     void handleRoomRestartCommand(std::vector<std::string> arguments, std::shared_ptr<Room> start);
+    void handleInventoryCommand();
 
     std::vector<std::string> tokenizeString(const std::string &input);
     std::string makeLowercase(std::string input);

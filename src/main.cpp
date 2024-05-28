@@ -9,9 +9,9 @@
 #include "FxB1.h"
 
 int main() {
-    std::shared_ptr<Room> start = std::make_shared<FxB1>();
+    std::shared_ptr<Room> startRoom = std::make_shared<FxB1>();
 
-    ZOOrkEngine zoork(start);
+    ZOOrkEngine zoork(startRoom);
 
     zoork.run();
 

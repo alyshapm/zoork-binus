@@ -49,6 +49,8 @@ void ZOOrkEngine::run() {
         } else if (command == "talk" && arguments.size() > 1 && arguments[0] == "to") {
             std::vector<std::string> talkArguments(words.begin() + 2, words.end());
             handleTalkCommand(talkArguments);
+        } else if (command == "inventory") { 
+            handleInventoryCommand();
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -145,10 +147,10 @@ void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
     std::string itemName = arguments[0]; // Assuming simple single-word items for simplicity
     std::shared_ptr<Item> item = player->getCurrentRoom()->retrieveItem(itemName);
     if (item) {
+        std::cout << "You have taken a " << itemName << "\n";
         player->addItem(item);
-        std::cout << "Taken.\n";
     } else {
-        std::cout << "No such item.\n";
+        std::cout << "No such item exists in this room.\n";
     }
 }
 
@@ -223,4 +225,8 @@ std::string ZOOrkEngine::concatenateArguments(const std::vector<std::string>& ar
         result += arg;
     }
     return result;
+}
+
+void ZOOrkEngine::handleInventoryCommand() {
+    player->listInventory();
 }

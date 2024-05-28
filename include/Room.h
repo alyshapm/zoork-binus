@@ -17,10 +17,11 @@ public:
 
     Room(const std::string &, const std::string &, std::shared_ptr<Command>);
 
-   void addItem(std::shared_ptr<Item> item);
-   void removeItem(const std::string&);
-   std::shared_ptr<Item> getItem(const std::string&);
-   std::shared_ptr<Item> retrieveItem(const std::string& name);
+    void addItem(std::shared_ptr<Item> item);
+    void removeItem(const std::string& itemName);
+    std::shared_ptr<Item> getItem(const std::string& itemName);
+    std::shared_ptr<Item> retrieveItem(const std::string& itemName);
+
 
     void addPassage(const std::string &, std::shared_ptr<Passage>);
 
