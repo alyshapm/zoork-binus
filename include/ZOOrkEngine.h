@@ -17,12 +17,16 @@
 class ZOOrkEngine {
 public:
     ZOOrkEngine(std::shared_ptr<Room> start);
+    static ZOOrkEngine& instance();
 
     void run();
+
+    void requestRestart(std::shared_ptr<Room> start = nullptr);
 
 private:
     Player* player;
     bool gameOver = false;
+    std::shared_ptr<Room> startRoom;
 
     void handleGoCommand(std::vector<std::string> arguments);
     void handleLookCommand(const std::vector<std::string>& arguments);
@@ -32,10 +36,14 @@ private:
     void handleExamineCommand(std::vector<std::string> arguments);
     void handleReadCommand(std::vector<std::string> arguments);
     void handleTalkCommand(std::vector<std::string> arguments);
+    void handleRestartCommand(std::vector<std::string> arguments);
+    void handleRoomRestartCommand(std::vector<std::string> arguments, std::shared_ptr<Room> start);
 
     std::vector<std::string> tokenizeString(const std::string &input);
     std::string makeLowercase(std::string input);
     std::string concatenateArguments(const std::vector<std::string>& arguments);
+
+    static ZOOrkEngine* instance_;
 };
 
 #endif // ZOORK_ENGINE_H

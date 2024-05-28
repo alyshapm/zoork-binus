@@ -1,15 +1,24 @@
 #include "ZOOrkEngine.h"
 
 #include <utility>
-#include <algorithm> 
-#include <cctype>    
+#include <algorithm>
+#include <cctype>
 #include <memory>
 
+ZOOrkEngine* ZOOrkEngine::instance_ = nullptr;
 
-ZOOrkEngine::ZOOrkEngine(std::shared_ptr<Room> start) {
+ZOOrkEngine::ZOOrkEngine(std::shared_ptr<Room> start) : startRoom(std::move(start)) {
+    if (instance_ == nullptr) {
+        instance_ = this;
+    }
+
     player = Player::instance();
-    player->setCurrentRoom(start.get());
+    player->setCurrentRoom(startRoom.get());
     player->getCurrentRoom()->enter();
+}
+
+ZOOrkEngine& ZOOrkEngine::instance() {
+    return *instance_;
 }
 
 void ZOOrkEngine::run() {
@@ -44,6 +53,38 @@ void ZOOrkEngine::run() {
             std::cout << "I don't understand that command.\n";
         }
     }
+}
+
+void ZOOrkEngine::requestRestart(std::shared_ptr<Room> start) {
+    handleRoomRestartCommand({}, start);
+}
+
+void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
+    std::string input;
+    std::cout << "Do you want to Restart?\n> ";
+    std::cin >> input;
+    std::string restartStr = makeLowercase(input);
+
+    if (restartStr == "y" || restartStr == "yes") {
+        // Reset the game state
+        player->setCurrentRoom(startRoom.get());
+        player->getCurrentRoom()->enter();
+        player->listInventory();
+    }
+    else {
+        std::cout << "Continuing in the current room.\n";
+    }
+}
+
+void ZOOrkEngine::handleRoomRestartCommand(std::vector<std::string> arguments, std::shared_ptr<Room> start) {
+    std::cout << "Restarting...\n> ";
+        // Reset the game state
+        // gameOver = false;
+        if (!start) {
+            start = startRoom;
+        }
+        player->setCurrentRoom(start.get());
+        player->getCurrentRoom()->enter();
 }
 
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
