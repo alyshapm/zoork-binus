@@ -43,3 +43,8 @@ void Player::listInventory() const {
         }
     }
 }
+
+void Player::clearInventory() {
+    inventory.clear();
+    std::cout << "Your inventory has been cleared.\n";
+}

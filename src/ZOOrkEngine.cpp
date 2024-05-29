@@ -42,6 +42,8 @@ void ZOOrkEngine::run() {
             handleDropCommand(arguments);
         } else if (command == "quit") {
             handleQuitCommand(arguments);
+        } else if (command == "restart") {
+            handleRestartCommand(arguments);
         } else if (command == "examine") {
             handleExamineCommand(arguments);
         } else if (command == "read") {
@@ -64,14 +66,14 @@ void ZOOrkEngine::requestRestart(std::shared_ptr<Room> start) {
 void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
     std::string input;
     std::cout << "Do you want to Restart?\n> ";
-    std::cin >> input;
+    std::getline(std::cin, input);
     std::string restartStr = makeLowercase(input);
 
     if (restartStr == "y" || restartStr == "yes") {
         // Reset the game state
         player->setCurrentRoom(startRoom.get());
         player->getCurrentRoom()->enter();
-        player->listInventory();
+        player->clearInventory();
     }
     else {
         std::cout << "Continuing in the current room.\n";
@@ -87,6 +89,7 @@ void ZOOrkEngine::handleRoomRestartCommand(std::vector<std::string> arguments, s
         }
         player->setCurrentRoom(start.get());
         player->getCurrentRoom()->enter();
+        player->clearInventory();
 }
 
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
@@ -172,11 +175,13 @@ void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
 void ZOOrkEngine::handleQuitCommand(std::vector<std::string> arguments) {
     std::string input;
     std::cout << "Are you sure you want to QUIT?\n> ";
-    std::cin >> input;
+    std::getline(std::cin, input);
     std::string quitStr = makeLowercase(input);
 
     if (quitStr == "y" || quitStr == "yes") {
         gameOver = true;
+    } else {
+        std::cout << "Continuing in the current room.\n";
     }
 }
 

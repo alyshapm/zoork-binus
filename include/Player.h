@@ -33,6 +33,7 @@ public:
     void addItem(std::shared_ptr<Item> item);
     std::shared_ptr<Item> removeItem(const std::string& itemName);
     void listInventory() const;
+    void clearInventory();
 
 private:
     static Player *playerInstance;

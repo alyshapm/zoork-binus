@@ -9,3 +9,9 @@ void KanSup::handleExamine(const std::string& object) const {
         std::cout << "You examine the " << object << ", but there's nothing noteworthy about it.\n";
     }
 }
+
+void KanSup::handleRead(const std::string& object) const { 
+}
+
+void KanSup::handleTalk(const std::string& object) const { 
+}
