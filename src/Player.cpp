@@ -18,7 +18,7 @@ Room* Player::getCurrentRoom() const {
 
 void Player::addItem(std::shared_ptr<Item> item) {
     inventory.push_back(item);
-    std::cout << item->getName() << " added to your inventory.\n";
+    std::cout << "You added " << item->getName() << " to your inventory.\n";
 }
 
 std::shared_ptr<Item> Player::removeItem(const std::string& itemName) {
@@ -26,7 +26,7 @@ std::shared_ptr<Item> Player::removeItem(const std::string& itemName) {
         if ((*it)->getName() == itemName) {
             std::shared_ptr<Item> item = *it;
             inventory.erase(it);
-            std::cout << itemName << " removed from your inventory.\n";
+            std::cout << "You removed " << itemName << " from your inventory.\n";
             return item;
         }
     }

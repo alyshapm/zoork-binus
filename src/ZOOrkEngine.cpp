@@ -163,7 +163,7 @@ void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
     std::shared_ptr<Item> item = player->removeItem(itemName);
     if (item) {
         player->getCurrentRoom()->addItem(item);
-        std::cout << "Dropped.\n";
+        std::cout << "You have dropped your " << itemName << "\n";
     } else {
         std::cout << "You don't have that item.\n";
     }
