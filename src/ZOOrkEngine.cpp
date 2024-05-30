@@ -112,8 +112,16 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
 
     Room* currentRoom = player->getCurrentRoom();
     auto passage = currentRoom->getPassage(direction);
-    player->setCurrentRoom(passage->getTo());
-    passage->enter();
+   if (passage) {
+        if (passage->isLocked()) {
+            std::cout << "The passage is locked.\n";
+        } else {
+            player->setCurrentRoom(passage->getTo());
+            passage->enter();
+        }
+    } else {
+        std::cout << "You cannot go that way.\n";
+    }
 }
 
 void ZOOrkEngine::handleLookCommand(const std::vector<std::string>& arguments) {

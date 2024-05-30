@@ -55,3 +55,15 @@ void Passage::setTo(Room* r) {
 Room* Passage::getTo() const {
     return toRoom;
 }
+
+void Passage::lock() {
+    locked = true;
+}
+
+void Passage::unlock() {
+    locked = false;
+}
+
+bool Passage::isLocked() const {
+    return locked;
+}

@@ -2,13 +2,18 @@
 #include "ZOOrkEngine.h"
 
 bool continueExamining = false;
+bool doorLocked = true;
 
 void FxB1::handleExamine(const std::string& object) const {
     if (object == "surroundings" || object == "environment") {
         std::cout << "You see a security guard asleep at his desk and a toolbox.\n"
                   << "Next to him, a door with a keypad. He's not doing a good job of guarding it..\n";
     } else if (object == "door") {
-        std::cout << "The door is locked, and there's a keypad next to it.\n";
+        if (!doorLocked) {
+            std::cout << "The door is unlocked. A staircase awaits you.\n";
+        } else {
+            std::cout << "The door is locked, and there's a keypad next to it.\n";
+        }
     } else if (object == "toolbox") {
         std::cout << "It's unlocked and contains a rope, a sturdy crowbar, and a note.\n";
     } else if (object == "keypad") {
@@ -62,9 +67,10 @@ void FxB1::handleTalk(const std::string& object) const {
 
 void FxB1::handleEnterPasscode(const std::string& passcode) const {
     if (passcode == correctPasscode) {
-        std::cout << "Click! The door unlocks with a satisfying click. You ascend the stairs, leaving the musty basement behind.\n";
+        std::cout << "Click! The door unlocks with a satisfying click. You can now go up.\n";
+        doorLocked = false;
         continueExamining = false;
-        // Code to move to the next room or state
+        
     } else {
         if (--remainingAttempts > 0) {
             std::cout << "Access Denied. Incorrect passcode. You have " << remainingAttempts << " attempt(s) remaining.\n";

@@ -14,7 +14,7 @@ public:
         correctPasscode = generateRandomPasscode();
         auto crowbar = std::make_shared<Item>("Crowbar", "A sturdy crowbar, it looks useful for prying things open.");
         addItem(crowbar);
-        }
+    }
 
     void handleExamine(const std::string& object) const override;
     void handleTalk(const std::string& object) const override;

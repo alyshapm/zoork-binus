@@ -95,7 +95,6 @@ void Room::executeCommand(const std::string& command) {
     }
 }
 
-
 void Room::handleExamine(const std::string& object) const {
     std::cout << "You examine the " << object << ".\n";
 }
