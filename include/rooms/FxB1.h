@@ -23,10 +23,15 @@ public:
     void handleRead(const std::string& object) const override;
     void handleEnterPasscode(const std::string& passcode) const;
 
+    void setDoor(std::shared_ptr<Passage> passage) {
+        door = passage;
+    }
+    
 private:
     mutable int remainingAttempts = 3;
     std::string correctPasscode;
-
+    std::shared_ptr<Passage> door;
+    
     std::string generateRandomPasscode() {
         // Define the range of characters for the passcode
         const std::string passcodeChars = "0123456789";

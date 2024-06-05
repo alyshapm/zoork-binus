@@ -1,5 +1,6 @@
 #include "ZOOrkEngine.h"
 #include "Utilities.h"
+#include "Passage.h"
 
 #include <utility>
 #include <algorithm>
@@ -102,6 +103,12 @@ void ZOOrkEngine::handleRoomRestartCommand(std::vector<std::string> arguments, s
 }
 
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Go where?\n";
+        return;
+    }
+
+    // Map shorthand directions to full directions
     std::string direction;
     if (arguments[0] == "n" || arguments[0] == "north") {
         direction = "north";
@@ -120,16 +127,18 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     }
 
     Room* currentRoom = player->getCurrentRoom();
-    auto passage = currentRoom->getPassage(direction);
-   if (passage) {
-        if (passage->isLocked()) {
-            std::cout << "The passage is locked.\n";
-        } else {
-            player->setCurrentRoom(passage->getTo());
-            passage->enter();
-        }
+    std::shared_ptr<Passage> passage = currentRoom->getPassage(direction);
+
+    if (!passage) {
+        std::cout << "You can't go that way.\n";
+        return;
+    }
+
+    if (passage->isLocked()) {
+        std::cout << "The passage is locked.\n";
     } else {
-        std::cout << "You cannot go that way.\n";
+        player->setCurrentRoom(passage->getTo());
+        player->getCurrentRoom()->enter();
     }
 }
 

@@ -22,7 +22,6 @@ public:
     std::shared_ptr<Item> getItem(const std::string& itemName);
     std::shared_ptr<Item> retrieveItem(const std::string& itemName);
 
-
     void addPassage(const std::string &, std::shared_ptr<Passage>);
 
     void removePassage(const std::string &);
@@ -31,10 +30,18 @@ public:
 
     void addCommand(const std::string& command, std::function<void()> action);
     void executeCommand(const std::string& command);
-    
+
+    // New methods for door passage handling
+    void setPassage(std::shared_ptr<Passage> passage);
+    std::shared_ptr<Passage> getPassage() const;
+    void unlockPassage();
+    void lockPassage();
+    bool isPassageLocked() const;
+
 private:
     std::map<std::string, std::shared_ptr<Passage>> passageMap;
     std::map<std::string, std::shared_ptr<Item>> items;
+    std::shared_ptr<Passage> passage;
 
     // Define specific functions for interactions
     virtual void handleExamine(const std::string& object) const;

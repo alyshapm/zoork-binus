@@ -10,7 +10,6 @@
 #include <vector>
 #include <string>
 
-
 Room::Room(const std::string &n, const std::string &d) : Location(n, d) {
     enterCommand = std::make_shared<RoomDefaultEnterCommand>(this);
 }
@@ -55,7 +54,6 @@ std::shared_ptr<Item> Room::getItem(const std::string& name) {
     }
     return nullptr;  // Return nullptr if the item is not found
 }
-
 
 std::shared_ptr<Item> Room::retrieveItem(const std::string& name) {
     auto it = items.find(name);
@@ -127,4 +125,28 @@ void Room::handleEscape(const std::string& object) const {
 
 void Room::handleGo(const std::string& object) const {
     std::cout << "You try to go " << object << ".\n";
+}
+
+void Room::setPassage(std::shared_ptr<Passage> passage) {
+    this->passage = passage;
+}
+
+std::shared_ptr<Passage> Room::getPassage() const {
+    return passage;
+}
+
+void Room::unlockPassage() {
+    if (passage) {
+        passage->unlock();
+    }
+}
+
+void Room::lockPassage() {
+    if (passage) {
+        passage->lock();
+    }
+}
+
+bool Room::isPassageLocked() const {
+    return passage ? passage->isLocked() : false;
 }
