@@ -12,6 +12,8 @@ public:
     "The air is damp, and the only sound is the faint hum of electrical equipment.\n"
     "A steel door blocks your exit.") { 
         correctPasscode = generateRandomPasscode();
+
+        // Add crowbar to room
         auto crowbar = std::make_shared<Item>("Crowbar", "A sturdy crowbar, it looks useful for prying things open.");
         addItem(crowbar);
     }

@@ -1,7 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
-
 #ifndef ZOORK_PLAYER_H
 #define ZOORK_PLAYER_H
 
@@ -12,11 +8,12 @@
 
 #include <vector>
 #include <memory>
+#include <unordered_map>
+#include <string>
 
 class Player : public Character {
 public:
     static Player *instance() {
-        // Note: lazy instantiation of the singleton Player object
         if (!playerInstance) {
             playerInstance = new Player();
         }
@@ -29,16 +26,31 @@ public:
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
 
-     // Inventory management
+    // Inventory management
     void addItem(std::shared_ptr<Item> item);
+    std::shared_ptr<Item> getItem(const std::string& itemName) const;
     std::shared_ptr<Item> removeItem(const std::string& itemName);
     void listInventory() const;
     void clearInventory();
+    void checkItemDescription(const std::string& itemName) const;
+
+    // Equipment management
+    void equipItem(const std::string& itemName);
+    void unequipItem(const std::string& itemName);
+    std::shared_ptr<Item> getEquippedItem(const std::string& itemName) const;
+    void listEquippedItems() const;
+
+    // Status effects management
+    void addStatusEffect(const std::string& effectName, const std::string& effectDescription);
+    void removeStatusEffect(const std::string& effectName);
+    void listStatusEffects() const;
 
 private:
     static Player *playerInstance;
     Room* currentRoom;
     std::vector<std::shared_ptr<Item>> inventory;
+    std::unordered_map<std::string, std::shared_ptr<Item>> equippedItems;
+    std::unordered_map<std::string, std::string> statusEffects;
 
     Player() : Character("You", "You are a person, alike in dignity to any other, but uniquely you."),
                currentRoom(new NullRoom()) {}

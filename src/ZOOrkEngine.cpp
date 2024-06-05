@@ -1,4 +1,5 @@
 #include "ZOOrkEngine.h"
+#include "Utilities.h"
 
 #include <utility>
 #include <algorithm>
@@ -34,7 +35,7 @@ void ZOOrkEngine::run() {
 
         if (command == "go") {
             handleGoCommand(arguments);
-        } else if ((command == "look") || (command == "inspect")) {
+        } else if ((command == "look")) {
             handleLookCommand(arguments);
         } else if ((command == "take") || (command == "get")) {
             handleTakeCommand(arguments);
@@ -51,8 +52,16 @@ void ZOOrkEngine::run() {
         } else if (command == "talk" && arguments.size() > 1 && arguments[0] == "to") {
             std::vector<std::string> talkArguments(words.begin() + 2, words.end());
             handleTalkCommand(talkArguments);
-        } else if (command == "inventory") { 
+        } else if (command == "inventory") {
             handleInventoryCommand();
+        } else if (command == "inspect") {
+            handleInspectCommand(arguments);
+        } else if (command == "equip") {
+            handleEquipCommand(arguments);
+        } else if (command == "unequip") {
+            handleUnequipCommand(arguments);
+        } else if (command == "status") {
+            handleStatusCommand();
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -155,7 +164,8 @@ void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
         std::cout << "Take what?\n";
         return;
     }
-    std::string itemName = arguments[0]; // Assuming simple single-word items for simplicity
+
+    std::string itemName = makeLowercase(concatenateArguments(arguments)); // Correctly concatenate arguments and convert to lowercase
     std::shared_ptr<Item> item = player->getCurrentRoom()->retrieveItem(itemName);
     if (item) {
         std::cout << "You have taken a " << itemName << "\n";
@@ -220,15 +230,6 @@ std::vector<std::string> ZOOrkEngine::tokenizeString(const std::string &input) {
     return tokens;
 }
 
-std::string ZOOrkEngine::makeLowercase(std::string input) {
-    std::string output = std::move(input);
-    // Using a lambda to ensure the correct tolower function is called
-    std::transform(output.begin(), output.end(), output.begin(),
-                   [](unsigned char c) -> unsigned char { return std::tolower(c); });
-
-    return output;
-}
-
 std::string ZOOrkEngine::concatenateArguments(const std::vector<std::string>& arguments) {
     std::string result;
     for (const std::string& arg : arguments) {
@@ -242,4 +243,44 @@ std::string ZOOrkEngine::concatenateArguments(const std::vector<std::string>& ar
 
 void ZOOrkEngine::handleInventoryCommand() {
     player->listInventory();
+}
+
+void ZOOrkEngine::handleInspectCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Inspect what?\n";
+        return;
+    }
+
+    std::string itemName = concatenateArguments(arguments);
+    std::shared_ptr<Item> item = player->getItem(itemName);
+    if (item) {
+        std::cout << "Description of " << itemName << ":\n";
+        std::cout << item->getDescription() << "\n";
+    } else {
+        std::cout << "You don't have a " << itemName << " in your inventory.\n";
+    }
+}
+
+void ZOOrkEngine::handleEquipCommand(const std::vector<std::string>& arguments) {
+    if (arguments.empty()) {
+        std::cout << "Equip what?\n";
+        return;
+    }
+
+    std::string itemName = concatenateArguments(arguments);
+    player->equipItem(itemName);
+}
+
+void ZOOrkEngine::handleUnequipCommand(const std::vector<std::string>& arguments) {
+    if (arguments.empty()) {
+        std::cout << "Unequip what?\n";
+        return;
+    }
+
+    std::string itemName = concatenateArguments(arguments);
+    player->unequipItem(itemName);
+}
+
+void ZOOrkEngine::handleStatusCommand() {
+    player->listStatusEffects();
 }

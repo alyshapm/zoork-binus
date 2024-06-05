@@ -13,13 +13,11 @@
 class Item : public GameObject {
 public:
     Item(const std::string &, const std::string &);
-
     Item(const std::string &, const std::string &, std::shared_ptr<Command>);
 
     virtual void use();
-
     void setUseCommand(std::shared_ptr<Command>);
-
+    
 protected:
     std::shared_ptr<Command> useCommand;
 };

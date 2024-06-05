@@ -1,7 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
-
 #include "GameObject.h"
 
 GameObject::GameObject(const std::string &n, const std::string &d) : name(n), description(d) {}
@@ -15,7 +11,7 @@ std::string GameObject::getName() const {
 }
 
 void GameObject::setDescription(const std::string &s) {
-    name = s;
+    description = s;
 }
 
 std::string GameObject::getDescription() const {

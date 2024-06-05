@@ -1,6 +1,7 @@
 #include "NullPassage.h"
 #include "Room.h"
 #include "Item.h"
+#include "Utilities.h"
 
 #include <utility>
 #include <memory>
@@ -39,7 +40,8 @@ std::shared_ptr<Passage> Room::getPassage(const std::string &direction) {
 
 
 void Room::addItem(std::shared_ptr<Item> item) {
-    items[item->getName()] = item;
+    std::string itemNameLower = makeLowercase(item->getName());
+    items[itemNameLower] = item;
 }
 
 void Room::removeItem(const std::string& name) {
