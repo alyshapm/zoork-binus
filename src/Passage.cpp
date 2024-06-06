@@ -15,13 +15,11 @@ std::string Passage::oppositeDirection(const std::string &s) {
     else return "unknown_direction";
 }
 
-void Passage::createBasicPassage(Room* from, Room* to, const std::string &direction, bool bidirectional, bool locked) {
-    std::string passageName = from->getName() + "_to_" + to->getName();
-    auto temp1 = std::make_shared<Passage>(passageName, "A totally normal passageway.", from, to, locked);
+void Passage::createBasicPassage(const std::string& name, const std::string& description, Room* from, Room* to, const std::string &direction, bool bidirectional, bool locked) {
+    auto temp1 = std::make_shared<Passage>(name, description, from, to, locked);
     from->addPassage(direction, temp1);
     if (bidirectional) {
-        std::string passageName2 = to->getName() + "_to_" + from->getName();
-        auto temp2 = std::make_shared<Passage>(passageName2, "A totally normal passageway.", to, from, locked);
+        auto temp2 = std::make_shared<Passage>(name, description, to, from, false);
         to->addPassage(oppositeDirection(direction), temp2);
     }
 }

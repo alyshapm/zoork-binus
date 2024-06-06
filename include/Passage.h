@@ -7,7 +7,7 @@
 
 class Passage : public Location {
 public:
-    static void createBasicPassage(Room*, Room*, const std::string &, bool bidirectional = true, bool locked = false);
+    static void createBasicPassage(const std::string &, const std::string &, Room*, Room*, const std::string &, bool bidirectional = true, bool locked = false);
 
     Passage(const std::string &, const std::string &, Room*, Room*, bool locked = false);
 
