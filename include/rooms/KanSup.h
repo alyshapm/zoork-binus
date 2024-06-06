@@ -7,11 +7,12 @@
 class KanSup : public Room {
 public:
     KanSup() : Room("Kantin Supir", 
-    "You find yourself in an empty food court. There aren't any doors besides the one you used to enter..") {}
+    "You find yourself in an empty food court.\n"
+    "Chairs and tables are arranged messily.\n"
+    "There doesn't seem to be any doors besides the one you entered in..") {}
     
     void handleExamine(const std::string& object) const override;
-    void handleTalk(const std::string& object) const override;
-    void handleRead(const std::string& object) const override;
+    void handleOpen(const std::string& object) const override;
 };
 
 #endif // ZOORK_KANSUP_ROOM_H

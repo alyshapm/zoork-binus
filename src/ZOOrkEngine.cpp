@@ -63,6 +63,8 @@ void ZOOrkEngine::run() {
             handleUnequipCommand(arguments);
         } else if (command == "status") {
             handleStatusCommand();
+        } else if (command == "open") {
+            handleOpenCommand(arguments);
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -213,18 +215,43 @@ void ZOOrkEngine::handleQuitCommand(std::vector<std::string> arguments) {
 }
 
 void ZOOrkEngine::handleExamineCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Examine what?\n";
+        return;
+    }
+
     std::string object = concatenateArguments(arguments);
     player->getCurrentRoom()->executeCommand("examine " + object);
 }
 
 void ZOOrkEngine::handleReadCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Read what?\n";
+        return;
+    }
+
     std::string object = concatenateArguments(arguments);
     player->getCurrentRoom()->executeCommand("read " + object);
 }
 
 void ZOOrkEngine::handleTalkCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Talk to what?\n";
+        return;
+    }
+
     std::string object = concatenateArguments(arguments);
     player->getCurrentRoom()->executeCommand("talk " + object);
+}
+
+void ZOOrkEngine::handleOpenCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Open what?\n";
+        return;
+    }
+
+    std::string object = concatenateArguments(arguments);
+    player->getCurrentRoom()->executeCommand("open " + object);
 }
 
 std::vector<std::string> ZOOrkEngine::tokenizeString(const std::string &input) {

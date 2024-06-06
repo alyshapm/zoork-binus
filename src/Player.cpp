@@ -69,6 +69,12 @@ void Player::checkItemDescription(const std::string& itemName) const {
 void Player::equipItem(const std::string& itemName) {
     auto item = getItem(itemName);
     if (item) {
+        // Check if the player already has an item equipped
+        if (!equippedItems.empty()) {
+            // If so, unequip the currently equipped item
+            auto equippedItem = equippedItems.begin()->first;
+            unequipItem(equippedItem);
+        }
         equippedItems[itemName] = item;
         std::cout << "You have equipped the " << itemName << ".\n";
     } else {

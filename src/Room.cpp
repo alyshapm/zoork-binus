@@ -90,6 +90,8 @@ void Room::executeCommand(const std::string& command) {
         handleTalk(object);
     } else if (mainCommand == "read") {
         handleRead(object);
+    } else if (mainCommand == "open") {
+        handleOpen(object);
     } else {
         std::cout << "Unknown command: " << mainCommand << std::endl;
     }
@@ -126,6 +128,11 @@ void Room::handleEscape(const std::string& object) const {
 void Room::handleGo(const std::string& object) const {
     std::cout << "You try to go " << object << ".\n";
 }
+
+void Room::handleOpen(const std::string& object) const {
+    std::cout << "You try to open " << object << ".\n";
+}
+
 
 void Room::setPassage(std::shared_ptr<Passage> passage) {
     this->passage = passage;

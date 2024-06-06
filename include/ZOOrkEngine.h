@@ -43,6 +43,7 @@ private:
     void handleEquipCommand(const std::vector<std::string>& arguments);
     void handleUnequipCommand(const std::vector<std::string>& arguments);
     void handleStatusCommand();
+    void handleOpenCommand(std::vector<std::string> arguments);
 
     std::vector<std::string> tokenizeString(const std::string &input);
     std::string concatenateArguments(const std::vector<std::string>& arguments);
