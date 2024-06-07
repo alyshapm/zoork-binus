@@ -20,7 +20,15 @@ int main() {
         startRoom.get(), kansupRoom.get(), "up", true, true);
 
     std::shared_ptr<Passage> staircase = startRoom->getPassage("up");
-    std::static_pointer_cast<FxB1>(startRoom)->setDoor(staircase);
+    std::static_pointer_cast<FxB1>(startRoom)->setPassage(staircase);
+
+    Passage::createBasicPassage("Vent",
+        "A vent that leads to another room.",
+        kansupRoom.get(), foodhallRoom.get(), "up", true, true);
+
+    std::shared_ptr<Passage> vent = kansupRoom->getPassage("up");
+    std::static_pointer_cast<KanSup>(kansupRoom)->setPassage(vent);
+
 
     ZOOrkEngine zoork(startRoom);
 

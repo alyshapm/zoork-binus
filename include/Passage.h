@@ -23,8 +23,9 @@ public:
     void unlock(); // Method to unlock the passage
     bool isLocked() const; // Method to check if the passage is locked
 
-protected:
     static std::string oppositeDirection(const std::string &);
+
+protected:
     Room* fromRoom;
     Room* toRoom;
     bool locked;

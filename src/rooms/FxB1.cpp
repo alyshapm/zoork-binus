@@ -8,7 +8,7 @@ void FxB1::handleExamine(const std::string& object) const {
         std::cout << "You see a security guard asleep at his desk and a toolbox.\n"
                   << "Next to him, a door with a keypad. He's not doing a good job of guarding it..\n";
     } else if (object == "door") {
-        if (door->isLocked()) {
+        if (steelDoor->isLocked()) {
             std::cout << "The door is locked, and there's a keypad next to it.\n";
         } else {
             std::cout << "The door is unlocked. A staircase awaits you.\n";
@@ -67,7 +67,7 @@ void FxB1::handleTalk(const std::string& object) const {
 void FxB1::handleEnterPasscode(const std::string& passcode) const {
     if (passcode == correctPasscode) {
         std::cout << "Click! The door unlocks with a satisfying click. You can now go up.\n";
-        door->unlock(); 
+        steelDoor->unlock(); 
         continueExamining = false;
         
     } else {

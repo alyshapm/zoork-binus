@@ -10,6 +10,7 @@
 #include <functional>
 
 class Passage;
+class Door;
 
 class Room : public Location {
 public:
@@ -17,23 +18,20 @@ public:
 
     Room(const std::string &, const std::string &, std::shared_ptr<Command>);
 
+    // ITEM HANDLING
     void addItem(std::shared_ptr<Item> item);
     void removeItem(const std::string& itemName);
     std::shared_ptr<Item> getItem(const std::string& itemName);
     std::shared_ptr<Item> retrieveItem(const std::string& itemName);
 
-    void addPassage(const std::string &, std::shared_ptr<Passage>);
-
-    void removePassage(const std::string &);
-
-    std::shared_ptr<Passage> getPassage(const std::string &);
-
     void addCommand(const std::string& command, std::function<void()> action);
     void executeCommand(const std::string& command);
 
-    // New methods for door passage handling
+    // PASSAGE HANDLING
+    void addPassage(const std::string &, std::shared_ptr<Passage>);
+    void removePassage(const std::string &);
+    std::shared_ptr<Passage> getPassage(const std::string &);
     void setPassage(std::shared_ptr<Passage> passage);
-    std::shared_ptr<Passage> getPassage() const;
     void unlockPassage();
     void lockPassage();
     bool isPassageLocked() const;

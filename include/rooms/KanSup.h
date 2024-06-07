@@ -13,6 +13,14 @@ public:
     
     void handleExamine(const std::string& object) const override;
     void handleOpen(const std::string& object) const override;
+
+    void setPassage(std::shared_ptr<Passage> passage){
+        vent = passage;
+    }
+
+private:
+    std::shared_ptr<Passage> vent;
+    
 };
 
 #endif // ZOORK_KANSUP_ROOM_H

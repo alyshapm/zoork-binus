@@ -37,6 +37,26 @@ std::shared_ptr<Passage> Room::getPassage(const std::string &direction) {
     }
 }
 
+void Room::setPassage(std::shared_ptr<Passage> passage) {
+    this->passage = passage;
+}
+
+void Room::unlockPassage() {
+    if (passage) {
+        passage->unlock();
+    }
+}
+
+void Room::lockPassage() {
+    if (passage) {
+        passage->lock();
+    }
+}
+
+bool Room::isPassageLocked() const {
+    return passage ? passage->isLocked() : false;
+}
+
 
 void Room::addItem(std::shared_ptr<Item> item) {
     std::string itemNameLower = makeLowercase(item->getName());
@@ -131,29 +151,4 @@ void Room::handleGo(const std::string& object) const {
 
 void Room::handleOpen(const std::string& object) const {
     std::cout << "You try to open " << object << ".\n";
-}
-
-
-void Room::setPassage(std::shared_ptr<Passage> passage) {
-    this->passage = passage;
-}
-
-std::shared_ptr<Passage> Room::getPassage() const {
-    return passage;
-}
-
-void Room::unlockPassage() {
-    if (passage) {
-        passage->unlock();
-    }
-}
-
-void Room::lockPassage() {
-    if (passage) {
-        passage->lock();
-    }
-}
-
-bool Room::isPassageLocked() const {
-    return passage ? passage->isLocked() : false;
 }
