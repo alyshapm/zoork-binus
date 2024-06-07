@@ -31,14 +31,18 @@ void ZOOrkEngine::run() {
         std::getline(std::cin, input);
 
         std::vector<std::string> words = tokenizeString(input);
+        if (words.empty()) {
+            continue;
+        }
+
         std::string command = words[0];
         std::vector<std::string> arguments(words.begin() + 1, words.end());
 
         if (command == "go") {
             handleGoCommand(arguments);
-        } else if ((command == "look")) {
+        } else if (command == "look") {
             handleLookCommand(arguments);
-        } else if ((command == "take") || (command == "get")) {
+        } else if (command == "take" || command == "get") {
             handleTakeCommand(arguments);
         } else if (command == "drop") {
             handleDropCommand(arguments);
@@ -65,6 +69,8 @@ void ZOOrkEngine::run() {
             handleStatusCommand();
         } else if (command == "open") {
             handleOpenCommand(arguments);
+        } else if (command == "help") {
+            handleHelpCommand();
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -319,4 +325,25 @@ void ZOOrkEngine::handleUnequipCommand(const std::vector<std::string>& arguments
 
 void ZOOrkEngine::handleStatusCommand() {
     player->listStatusEffects();
+}
+
+void ZOOrkEngine::handleHelpCommand() {
+    std::cout << "Available commands:\n";
+    std::cout << "  go <direction>       - Move in the specified direction (north, south, east, west, up, down)\n";
+    std::cout << "  look                 - Look around the current room\n";
+    std::cout << "  look <item>          - Look at a specific item in the room\n";
+    std::cout << "  take <item>          - Take an item from the room\n";
+    std::cout << "  drop <item>          - Drop an item from your inventory\n";
+    std::cout << "  quit                 - Quit the game\n";
+    std::cout << "  restart              - Restart the game from the beginning\n";
+    std::cout << "  examine <item>       - Examine an item in the room\n";
+    std::cout << "  read <item>          - Read an item in the room\n";
+    std::cout << "  talk to <character>  - Talk to a character in the room\n";
+    std::cout << "  inventory            - List all items in your inventory\n";
+    std::cout << "  inspect <item>       - Inspect an item in your inventory\n";
+    std::cout << "  equip <item>         - Equip an item from your inventory\n";
+    std::cout << "  unequip <item>       - Unequip an item\n";
+    std::cout << "  status               - Show your current status effects\n";
+    std::cout << "  open <item>          - Open an item\n";
+    std::cout << "  help                 - Show this help message\n";
 }
