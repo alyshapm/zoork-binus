@@ -24,7 +24,7 @@ void KanSup::handleOpen(const std::string& object) const {
 
     if (object == "vent" || object == "grate") {
         if (player->getEquippedItem("crowbar")) {
-            std::cout << "You use your crowbar to pry open the vent. It comes off easily.\n";
+            std::cout << "You use your crowbar to pry open the vent. It comes off easily. You can now go up.\n";
             vent->unlock(); 
         } else {
             std::cout << "You try to open the vent, but it seems to be securely fastened. Perhaps you need a tool to pry it open.\n";
