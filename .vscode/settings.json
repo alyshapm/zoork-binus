@@ -46,7 +46,8 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "ctime": "cpp"
+    "ctime": "cpp",
+    "iomanip": "cpp"
   },
   "cmake.sourceDirectory": "C:/Users/Alysha/Documents/Even_Semester_2024/Professional Software Development/zoork-binus/src"
 }

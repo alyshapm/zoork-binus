@@ -3,6 +3,7 @@
 #include "Dice.h"
 #include "Utilities.h"
 #include <iostream>
+#include <iomanip>
 
 Skorz::Skorz() : Room("Skorz", "You enter the Skorz room.\n"
     "The atmosphere is tense, and you can sense something lurking in the shadows.\n") {
@@ -11,7 +12,8 @@ Skorz::Skorz() : Room("Skorz", "You enter the Skorz room.\n"
 
 void Skorz::handleExamine(const std::string& object) const {
     if (object == "surroundings" || object == "environment") {
-        std::cout << "The player might find various objects lying around, such as basketballs, stuffed animals, or arcade game tokens.\n";
+        std::cout << "The player might find various objects lying around, such as basketballs, stuffed animals, or arcade game tokens.\n"
+                  << "You sense a shadowy figure from the corner of your eyes. When you turn to look, it's gone.\n";
     } else if (object == "shadow" || object == "shadows") {
         std::cout << "The shadow stretches across the floor, taking on a grotesque, monstrous shape.\n"
                   << "It seems to be getting closer… After a few moments, the shadow fully materializes into a terrifying\n"
@@ -26,16 +28,20 @@ void Skorz::handleExamine(const std::string& object) const {
 
 void Skorz::handleFight(const std::string& enemy) const {
     makeLowercase(enemy);
-    if (enemy == "skorz mascot") {
+    if (enemy == "skorz mascot" || enemy == "mascot") {
         std::cout << "You encounter the Skorz mascot!\n";
         Player* player = Player::instance();
         bool enemyDefeated = false;
         bool playerDefeated = false;
 
         while (!enemyDefeated && !playerDefeated) {
-            std::cout << "\nYour HP: " << player->getHealth() << "  Skorz Mascot's HP: " << skorzMascot->getHealth() << "\n";
+            std::cout << "+------------------------+\n";
+            std::cout << "| Your HP: " << std::setw(3) << std::left << player->getHealth() << "           |\n";
+            std::cout << "| Mascot HP: " << std::setw(3) << std::left << skorzMascot->getHealth() << "         |\n";
+            std::cout << "+------------------------+\n";
             std::cout << "Type 'attack' to attack or 'run' to escape!\n";
             std::cout << "> ";
+
             std::string choice;
             std::getline(std::cin, choice);
 
