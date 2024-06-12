@@ -5,7 +5,12 @@ void FoodHall::handleExamine(const std::string &object) const
     if (object == "surroundings" || object == "environment")
     {
         std::cout << "The students seem friendly enough. Maybe you can ask them for some advice?\n"
-                     "Or is the cashier a better choice…\n";
+                     "Or is the cashier a better choice…\n"
+                     "There is clock on the wall showing the actual time";
+    }
+    else if (object == "clock")
+    {
+       std::cout << "The clock shows 09:10:15\n";
     }
     else
     {
@@ -21,7 +26,8 @@ void FoodHall::handleTalk(const std::string &object) const
     }
     else if (object == "cashier" || object == "Bob")
     {
-        std::cout << "Going up is your choice but be assured that the rumors that you have heard are true. Mr Z is awaiting… West is the way to your demise.\n";
+        std::cout << "Going up is your choice but be assured that the rumors that you have heard are true. Mr Z is awaiting…\n" 
+        "Do you know the time?\n";
     }
     else
     {

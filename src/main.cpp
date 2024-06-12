@@ -27,6 +27,7 @@ int main() {
     std::shared_ptr<Room> jkt48TheatreRoom = std::make_shared<Jkt48Theatre>();
     std::shared_ptr<Room> skorzRoom = std::make_shared<Skorz>();
 
+    // create stairs from fxb1 to kansup
     Passage::createBasicPassage("Staircase",
         "A staircase that leads to another room.",
         startRoom.get(), kansupRoom.get(), "up", true, true);
@@ -34,6 +35,7 @@ int main() {
     std::shared_ptr<Passage> staircase = startRoom->getPassage("up");
     std::static_pointer_cast<FxB1>(startRoom)->setPassage(staircase);
 
+    // create vent from kansup to FH
     Passage::createBasicPassage("Vent",
         "A vent that leads to another room.",
         kansupRoom.get(), foodhallRoom.get(), "up", true, true);
@@ -44,10 +46,14 @@ int main() {
     Passage::createBasicPassage("Basement Floor",
         "A pathway to other stores.",
         foodhallRoom.get(), vinesRoom.get(), "west", true, false);
-    
+
+    // create lift from vines to lobby
     Passage::createBasicPassage("Lift",
         "An elevator that takes you to another floor.",
-        vinesRoom.get(), fxLobbyRoom.get(), "north", true, false);
+        vinesRoom.get(), fxLobbyRoom.get(), "in", true, true);
+
+    std::shared_ptr<Passage> lift = vinesRoom->getPassage("in");
+    std::static_pointer_cast<Vines>(vinesRoom)->setPassage(lift);
     
     Passage::createBasicPassage("1st Floor East",
         "A pathway to other stores.",
