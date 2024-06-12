@@ -17,7 +17,7 @@
 #include "Skorz.h"
 
 int main() {
-    std::shared_ptr<Room> startRoom = std::make_shared<Skorz>();
+    std::shared_ptr<Room> startRoom = std::make_shared<FxB1>();
     std::shared_ptr<Room> kansupRoom = std::make_shared<KanSup>();
     std::shared_ptr<Room> foodhallRoom = std::make_shared<FoodHall>();
     std::shared_ptr<Room> vinesRoom = std::make_shared<Vines>();
@@ -57,7 +57,10 @@ int main() {
     
     Passage::createBasicPassage("1st Floor East",
         "A pathway to other stores.",
-        fxLobbyRoom.get(), sederhanaRoom.get(), "east", true, false);
+        fxLobbyRoom.get(), sederhanaRoom.get(), "east", true, true);
+
+    std::shared_ptr<Passage> smoke = fxLobbyRoom->getPassage("east");
+    std::static_pointer_cast<Lobby>(fxLobbyRoom)->setPassage(smoke);
 
     Passage::createBasicPassage("1st Floor North",
         "A pathway to other stores.",

@@ -14,7 +14,7 @@ void Vines::handleExamine(const std::string& object) const {
     }
     else if (object == "elevator" || object == "lift")
     {
-        std::cout << "You see a sturdy elevator door with a keypad next to it. The keypad seems to be waiting for input.\n";
+        std::cout << "You see a sturdy lift door with a keypad next to it. The keypad seems to be waiting for input.\n";
     }
     else if (object == "keypad")
     {

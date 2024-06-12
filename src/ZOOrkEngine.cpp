@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cctype>
 #include <memory>
+#include <Lobby.h>
 
 ZOOrkEngine* ZOOrkEngine::instance_ = nullptr;
 
@@ -137,6 +138,15 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     }
 
     Room* currentRoom = player->getCurrentRoom();
+
+    if (currentRoom->getName() == "Lobby" && (direction == "east" || direction == "e")) {
+        // Cast the currentRoom pointer to a Lobby pointer
+        Lobby* lobbyInstance = dynamic_cast<Lobby*>(currentRoom);
+        if (lobbyInstance) {
+            lobbyInstance->handleGetThroughSmoke();
+        }
+    }
+
     std::shared_ptr<Passage> passage = currentRoom->getPassage(direction);
 
     if (!passage) {
