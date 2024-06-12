@@ -71,6 +71,8 @@ void ZOOrkEngine::run() {
             handleOpenCommand(arguments);
         } else if (command == "help") {
             handleHelpCommand();
+        } else if (command == "fight") {
+            handleFightCommand(arguments);
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -258,6 +260,16 @@ void ZOOrkEngine::handleOpenCommand(std::vector<std::string> arguments) {
 
     std::string object = concatenateArguments(arguments);
     player->getCurrentRoom()->executeCommand("open " + object);
+}
+
+void ZOOrkEngine::handleFightCommand(std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Fight what?\n";
+        return;
+    }
+
+    std::string object = concatenateArguments(arguments);
+    player->getCurrentRoom()->executeCommand("fight " + object);
 }
 
 std::vector<std::string> ZOOrkEngine::tokenizeString(const std::string &input) {

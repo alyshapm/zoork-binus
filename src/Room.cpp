@@ -112,6 +112,8 @@ void Room::executeCommand(const std::string& command) {
         handleRead(object);
     } else if (mainCommand == "open") {
         handleOpen(object);
+    } else if (mainCommand == "fight") {
+        handleFight(object);
     } else {
         std::cout << "Unknown command: " << mainCommand << std::endl;
     }

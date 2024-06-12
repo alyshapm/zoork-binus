@@ -7,7 +7,7 @@
 class Vines : public Room {
 public:
     Vines() : Room("Vines", 
-    "The Vines store are full of potions. The store is only filled with one type of potion.\n There is what ressembles a lift.") {}
+    "The Vines store are full of potions.\n The store is only filled with one type of potion.\n There is what ressembles a lift.\n") {}
     
     void handleExamine(const std::string& object) const override;
     void handleEnterTime(const std::string &time) const;

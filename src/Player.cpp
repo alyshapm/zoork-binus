@@ -1,7 +1,5 @@
 #include "Player.h"
-#include "Room.h"
 #include "Utilities.h"
-#include <iostream>
 
 Player *Player::playerInstance = nullptr;
 
@@ -11,6 +9,26 @@ void Player::setCurrentRoom(Room* room) {
 
 Room* Player::getCurrentRoom() const {
     return currentRoom;
+}
+
+void Player::attack(Enemy& enemy) {
+    int roll = Dice::roll(20); // Assuming a 20-sided dice is used
+    if (roll + attackBonus >= enemy.getArmorClass()) {
+        // The attack hits
+        enemy.takeDamage(Dice::roll(6) + damage); // Assuming a six-sided dice is used for damage
+        std::cout << "You hit the " << enemy.getName() << "!\n";
+    } else {
+        std::cout << "You missed the " << enemy.getName() << "!\n";
+    }
+}
+
+bool Player::defend(int enemyAttackBonus) {
+    int roll = Dice::roll(20); // Assuming a 20-sided dice is used
+    return roll + armorClass >= enemyAttackBonus;
+}
+
+int Player::getHealth() const {
+    return health;
 }
 
 void Player::addItem(std::shared_ptr<Item> item) {
@@ -122,4 +140,8 @@ void Player::listStatusEffects() const {
     for (const auto& effect : statusEffects) {
         std::cout << "- " << effect.first << ": " << effect.second << "\n";
     }
+}
+
+bool Player::isDefeated() const {
+    return health <= 0;
 }
