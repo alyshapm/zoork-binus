@@ -45,7 +45,9 @@ private:
     void handleStatusCommand();
     void handleOpenCommand(std::vector<std::string> arguments);
     void handleFightCommand(std::vector<std::string> arguments);
+    void handleDrinkCommand(std::vector<std::string> arguments);
     void handleHelpCommand();
+    void handleStatsCommand();
 
     std::vector<std::string> tokenizeString(const std::string &input);
     std::string concatenateArguments(const std::vector<std::string>& arguments);

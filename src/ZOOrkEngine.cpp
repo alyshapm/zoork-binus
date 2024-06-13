@@ -31,8 +31,6 @@ void ZOOrkEngine::run() {
         std::string input;
         std::getline(std::cin, input);
 
-        input = makeLowercase(input);
-
         std::vector<std::string> words = tokenizeString(input);
         if (words.empty()) {
             continue;
@@ -76,6 +74,10 @@ void ZOOrkEngine::run() {
             handleHelpCommand();
         } else if (command == "fight") {
             handleFightCommand(arguments);
+        } else if (command == "drink") {
+            handleDrinkCommand(arguments);
+        } else if (command == "stats") {
+            handleStatsCommand();
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -196,7 +198,7 @@ void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
         return;
     }
 
-    std::string itemName = makeLowercase(concatenateArguments(arguments)); // Correctly concatenate arguments and convert to lowercase
+    std::string itemName = concatenateArguments(arguments); // Correctly concatenate arguments and convert to lowercase
     std::shared_ptr<Item> item = player->getCurrentRoom()->retrieveItem(itemName);
     if (item) {
         std::cout << "You have taken a " << itemName << "\n";
@@ -337,6 +339,36 @@ void ZOOrkEngine::handleEquipCommand(const std::vector<std::string>& arguments) 
     player->equipItem(itemName);
 }
 
+void ZOOrkEngine::handleDrinkCommand(const std::vector<std::string> arguments) {
+    if (arguments.empty()) {
+        std::cout << "Drink what?\n";
+        return;
+    }
+
+    std::string itemName = concatenateArguments(arguments);
+    std::shared_ptr<Item> item = player->getItem(itemName);
+    if (item && item->getType() == ItemType::POTION) {
+        std::string lowercaseItemName = makeLowercase(itemName);
+        if (lowercaseItemName == "vines potion") {
+            int armorReduction = 5; 
+            int armorClass = player->getArmorClass();
+            player->setArmorClass(armorClass - armorReduction);
+            std::cout << "You drank the " << itemName << "\n";
+            std::cout << "You feel weaker... \n";
+            player->addStatusEffect("Weakened", "Your armor class has been reduced by 5");
+            // Remove the potion from the inventory after use
+            player->removeItem(itemName);
+        } else if (lowercaseItemName == "sederhana potion") {
+            player->addStatusEffect("Strength", "You are now able to do more things..");
+            std::cout << "You have used the " << itemName << " and you now feel strong enough to even climb a mountain!\n";
+        }
+
+    } else {
+        std::cout << "You don't have a " << itemName << " or it's not a potion.\n";
+    }
+}
+
+
 void ZOOrkEngine::handleUnequipCommand(const std::vector<std::string>& arguments) {
     if (arguments.empty()) {
         std::cout << "Unequip what?\n";
@@ -350,6 +382,14 @@ void ZOOrkEngine::handleUnequipCommand(const std::vector<std::string>& arguments
 void ZOOrkEngine::handleStatusCommand() {
     player->listStatusEffects();
 }
+
+void ZOOrkEngine::handleStatsCommand() {
+    std::cout << "Player Stats:\n";
+    std::cout << "  HP: " << player->getHealth() << "\n";
+    std::cout << "  Armor: " << player->getArmorClass() << "\n";
+    std::cout << "  Strength Modifier: " << player->getAttackBonus() << "\n";
+}
+
 
 void ZOOrkEngine::handleHelpCommand() {
     std::cout << "Available commands:\n";
@@ -369,5 +409,8 @@ void ZOOrkEngine::handleHelpCommand() {
     std::cout << "  unequip <item>       - Unequip an item\n";
     std::cout << "  status               - Show your current status effects\n";
     std::cout << "  open <item>          - Open an item\n";
+    std::cout << "  fight <opponent>     - Engage in combat with an opponent\n";
+    std::cout << "  drink <potion>       - Drink a potion\n";
+    std::cout << "  stats                - Show your current player statistics\n";
     std::cout << "  help                 - Show this help message\n";
 }

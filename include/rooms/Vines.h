@@ -9,7 +9,7 @@ public:
     Vines() : Room("Vines", 
     "The Vines store is full of potions.\nThe store is only filled with one type of potion.\nThere is what resembles a lift.") {
         // Add potion to room
-        auto potion = std::make_shared<Item>("Potion", "A weird looking liquid that could wield some powers...");
+        auto potion = std::make_shared<Item>("Vines Potion", "A weird looking liquid that could wield some powers...", ItemType::POTION, 0);
         addItem(potion);
     }
     

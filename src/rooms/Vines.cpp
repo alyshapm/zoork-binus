@@ -22,11 +22,11 @@ void Vines::handleExamine(const std::string& object) const {
     }
     else if (object == "potions")
     {
-        std::cout << "One potion stands out, it demands to be taken...\n";
+        std::cout << "One potion stands out, it demands to be taken... The label reads 'Vines Potion'\n";
     }
     else if (object == "potion")
     {
-        std::cout << "The potion looks delicate, but a danger label is surrounding the bottle.\n";
+        std::cout << "The label reads 'Vines Potion'. The potion looks delicate, but a danger label is surrounding the bottle.\n";
     }
     else if (object == "keypad")
     {
