@@ -6,7 +6,7 @@ void Jkt48Theatre::handleExamine(const std::string& object) const {
     } else if (object == "photos" || object == "photo") {
         std::cout << "The photos depict various JKT48 members, each with a unique pose and costume.\n"
         "Their names and accomplishments are etched in small plaques below each photo.\n";
-    } else if (object == "toolbox") {
+    } else if (object == "stage") {
         std::cout << "The stage is empty, but a microphone stand and a few musical instruments rest in the corner.\n"
         "The spotlight seems to beckon you towards the center.\n";
     } else {
