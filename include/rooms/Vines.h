@@ -7,7 +7,11 @@
 class Vines : public Room {
 public:
     Vines() : Room("Vines", 
-    "The Vines store is full of potions.\nThe store is only filled with one type of potion.\nThere is what resembles a lift.") {}
+    "The Vines store is full of potions.\nThe store is only filled with one type of potion.\nThere is what resembles a lift.") {
+        // Add potion to room
+        auto potion = std::make_shared<Item>("Potion", "A weird looking liquid that could wield some powers...");
+        addItem(potion);
+    }
     
     void handleExamine(const std::string& object) const override;
     void handleEnterTime(const std::string &time) const;

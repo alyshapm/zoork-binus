@@ -23,7 +23,7 @@ void Lobby::handleRead(const std::string& object) const {
     if (object == "billboard") {
         std::cout << "Light! Light! Light! Flash a light at the gray wall.\n"; 
     } else if (object == "nametags") {
-        std::cout << "Mr Jalo\n";
+        std::cout << "MrJalo\n";
         std::cout << "Mr Borris\n";
         std::cout << "Ms Flash\n";
         std::cout << "Mr Alary\n";
@@ -38,16 +38,16 @@ void Lobby::handleTalk(const std::string& object) const {
     if (object == "students" || object == "student") {
         std::cout << "I heard that the potions from the stores downstairs are delicious.\n";
     } 
-    else if (object == "Mr Jalo") {
-        std::cout << "He sees and hears EVERYTHING…\n";
+    else if (object == "mr jalo") {
+        std::cout << "He sees and hears EVERYTHIN...\n";
     }
-    else if (object == "Mr Borris") {
+    else if (object == "mr borris") {
         std::cout << "I've been thinking about opening my own restaurant you know!\n";
     }
-    else if (object == "Ms Flash") {
+    else if (object == "ms flash") {
         std::cout << "…no answer, she seems to be looking for something.\n";
     }
-    else if (object == "Mr Alary") {
+    else if (object == "mr alary") {
         std::cout << "I think Ms flash dropped her flashlight somewhere on the floor.\n";
     }
     else {
@@ -60,6 +60,7 @@ void Lobby::handleGetThroughSmoke() const{
     if (player->getEquippedItem("flashlight")) {
         std::cout << "With the help of the flashlight you get through the smoke.\n";
         smoke->unlock();
+        player->unequipItem("flashlight");
     } else {
             std::cout << "A gray wall blocks your way, it seems like smoke… you can take a closer look\n";
             return;

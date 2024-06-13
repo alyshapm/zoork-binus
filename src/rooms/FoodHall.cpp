@@ -5,8 +5,8 @@ void FoodHall::handleExamine(const std::string &object) const
     if (object == "surroundings" || object == "environment")
     {
         std::cout << "The students seem friendly enough. Maybe you can ask them for some advice?\n"
-                     "Or is the cashier a better choice…\n"
-                     "A broken clock  is hanging on the wall.";
+                     "Or is the cashier a better choice...\n"
+                     "A broken clock  is hanging on the wall.\n";
     }
     else if (object == "clock")
     {

@@ -16,6 +16,14 @@ void Vines::handleExamine(const std::string& object) const {
     {
         std::cout << "You see a sturdy lift door with a keypad next to it. The keypad seems to be waiting for input.\n";
     }
+    else if (object == "potions")
+    {
+        std::cout << "one potion stands out, it demands to be take...\n";
+    }
+    else if (object == "potion")
+    {
+        std::cout << "the potion looks delicate, but a danger label are surrounding the bottle.\n";
+    }
     else if (object == "keypad")
     {
         std::cout << "The keypad says: \"What is the time?\"\n";
