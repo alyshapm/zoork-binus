@@ -31,6 +31,8 @@ void ZOOrkEngine::run() {
         std::string input;
         std::getline(std::cin, input);
 
+        input = makeLowercase(input);
+
         std::vector<std::string> words = tokenizeString(input);
         if (words.empty()) {
             continue;

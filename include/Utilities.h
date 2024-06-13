@@ -12,4 +12,15 @@ inline std::string makeLowercase(const std::string& str) {
     return lowerStr;
 }
 
+inline std::string removeWhitespace(const std::string& str) {
+    std::string result;
+    for (char c : str) {
+        if (!std::isspace(c)) {
+            result += c;
+        }
+    }
+    return result;
+}
+
+
 #endif // UTILITIES_H
