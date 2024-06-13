@@ -6,7 +6,7 @@
 #include "NullRoom.h"
 #include "Item.h"
 #include "Enemy.h"
-#include "Dice.h" // Assuming a Dice class is available for dice rolling
+#include "Dice.h"
 
 #include <vector>
 #include <memory>
@@ -28,8 +28,11 @@ public:
     // Combat functionality
     void attack(Enemy& enemy);
     bool defend(int enemyAttackBonus);
+    void takeDamage(int damage);
     bool isDefeated() const;
     int getHealth() const;
+    int getDamage() const;
+    int getAttackModifier() const;
 
     void addItem(std::shared_ptr<Item> item);
     std::shared_ptr<Item> getItem(const std::string& itemName) const;
@@ -58,11 +61,11 @@ private:
     std::unordered_map<std::string, std::string> statusEffects;
 
     Player() : Character("You", "You are a person, alike in dignity to any other, but uniquely you."),
-               currentRoom(new NullRoom()), attackBonus(2), damage(5), armorClass(15), health(100) {}
+               currentRoom(new NullRoom()), attackBonus(0), damage(6), armorClass(10), health(100) {}
 
-    int attackBonus; // Player's bonus to attack rolls
-    int damage;      // Damage inflicted by the player
-    int armorClass;  // Armor class of the player
+    int attackBonus; // Player's bonus to attack rolls (add with modifier if weapon included)
+    int damage;      // Number for roll (d6 damage)
+    int armorClass;  // Armor class of the player 
     int health;      // Health points of the player
 };
 

@@ -18,8 +18,8 @@ public:
     void setAttackBonus(int attackBonus);
     int getDamage() const;
     void setDamage(int damage);
-
     void takeDamage(int damage);
+    bool isDefeated() const;
 
 protected:
     std::vector<Item*> inventory;

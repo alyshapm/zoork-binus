@@ -15,3 +15,7 @@ int Enemy::getArmorClass() const {
 int Enemy::getHealth() const {
     return health;
 }
+
+int Enemy::getDamage() const {
+    return damage;
+}

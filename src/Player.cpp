@@ -31,6 +31,18 @@ int Player::getHealth() const {
     return health;
 }
 
+int Player::getDamage() const {
+    return damage;
+}
+
+void Player::takeDamage(int damage) {
+    health -= damage;
+}
+
+int Player::getAttackModifier() const {
+    return attackBonus;
+}
+
 void Player::addItem(std::shared_ptr<Item> item) {
     inventory.push_back(item);
     std::cout << "You added " << item->getName() << " to your inventory.\n";
@@ -95,6 +107,9 @@ void Player::equipItem(const std::string& itemName) {
         }
         equippedItems[itemName] = item;
         std::cout << "You have equipped the " << itemName << ".\n";
+        if (item->getType() == ItemType::WEAPON) {
+            attackBonus += item->getModifier();
+        }
     } else {
         std::cout << "You don't have a " << itemName << " to equip.\n";
     }
@@ -104,6 +119,10 @@ void Player::unequipItem(const std::string& itemName) {
     auto it = equippedItems.find(itemName);
     if (it != equippedItems.end()) {
         equippedItems.erase(it);
+        std::shared_ptr<Item> item = it->second;
+        if (item->getType() == ItemType::WEAPON) {
+            attackBonus -= item->getModifier();
+        }
         std::cout << "You have unequipped the " << itemName << ".\n";
     } else {
         std::cout << "You don't have a " << itemName << " equipped.\n";

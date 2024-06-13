@@ -7,7 +7,7 @@
 
 Skorz::Skorz() : Room("Skorz", "You enter the Skorz room.\n"
     "The atmosphere is tense, and you can sense something lurking in the shadows.\n") {
-    skorzMascot = std::make_shared<Enemy>("Skorz Mascot", "A terrifying Skorz mascot come to life.", 20, 10);
+    skorzMascot = std::make_shared<Enemy>("Skorz Mascot", "A terrifying Skorz mascot come to life.", 25, 10, 10);
 }
 
 void Skorz::handleExamine(const std::string& object) const {
@@ -31,6 +31,7 @@ void Skorz::handleFight(const std::string& enemy) const {
     if (enemy == "skorz mascot" || enemy == "mascot") {
         std::cout << "You encounter the Skorz mascot!\n";
         Player* player = Player::instance();
+
         bool enemyDefeated = false;
         bool playerDefeated = false;
 
@@ -40,36 +41,20 @@ void Skorz::handleFight(const std::string& enemy) const {
             std::cout << "| Mascot HP: " << std::setw(3) << std::left << skorzMascot->getHealth() << "         |\n";
             std::cout << "+------------------------+\n";
             std::cout << "Type 'attack' to attack or 'run' to escape!\n";
+            std::cout << player->getAttackModifier() << "\n";
             std::cout << "> ";
 
             std::string choice;
             std::getline(std::cin, choice);
 
             if (choice == "attack") {
-                int attackRoll = Dice::roll(20);
-                std::cout << "You rolled a " << attackRoll << " for attack.\n";
+                int playerAttackRoll = Dice::roll(20) + player->getAttackModifier();
+                std::cout << "You rolled a " << playerAttackRoll << " for attack.\n";
 
-                if (attackRoll >= 10) { // Assuming 10 as the default defense of Skorz mascot
-                    int damage = Dice::roll(6);
+                if (playerAttackRoll >= skorzMascot->getArmorClass()) {
+                    int damage = Dice::roll(player->getDamage());
                     std::cout << "You hit the Skorz mascot and deal " << damage << " damage!\n";
                     skorzMascot->takeDamage(damage);
-
-                    if (skorzMascot->isDefeated()) {
-                        std::cout << "You have defeated the Skorz mascot!\n";
-                        enemyDefeated = true;
-                    } else {
-                        int enemyAttackRoll = Dice::roll(20);
-                        std::cout << "The Skorz mascot attacks you!\n";
-                        std::cout << "It rolled a " << enemyAttackRoll << " for attack.\n";
-
-                        if (enemyAttackRoll >= 10) { // Assuming 10 as the default defense of the player
-                            int enemyDamage = Dice::roll(6);
-                            std::cout << "The Skorz mascot hits you and deals " << enemyDamage << " damage!\n";
-                            player->takeDamage(enemyDamage);
-                        } else {
-                            std::cout << "You managed to defend against the Skorz mascot's attack!\n";
-                        }
-                    }
                 } else {
                     std::cout << "You missed the Skorz mascot!\n";
                 }
@@ -78,9 +63,32 @@ void Skorz::handleFight(const std::string& enemy) const {
                 break;
             } else {
                 std::cout << "Invalid choice!\n";
+                continue;
             }
 
-            // Check if the player has been defeated
+            // Mascot's turn to attack
+            if (!skorzMascot->isDefeated()) {
+                int enemyAttackRoll = Dice::roll(20);
+                std::cout << "The Skorz mascot attacks you!\n";
+                std::cout << "It rolled a " << enemyAttackRoll << " for attack.\n";
+
+                if (enemyAttackRoll >= player->getArmorClass()) {
+                    int enemyDamage = Dice::roll(skorzMascot->getDamage());
+                    std::cout << "The Skorz mascot hits you and deals " << enemyDamage << " damage!\n";
+                    player->takeDamage(enemyDamage);
+                } else {
+                    std::cout << "You managed to defend against the Skorz mascot's attack!\n";
+                }
+            }
+
+            if (skorzMascot->isDefeated()) {
+                std::cout << "You have defeated the Skorz mascot!\n";
+                std::shared_ptr<Item> swordItem = std::make_shared<Item>("Sword", "A sharp blade. Equipping it gives you a higher chance of hitting an attack (+2)", ItemType::WEAPON, 2);
+                addItem(swordItem);
+                std::cout << "The enemy drops a sword!\n";
+                enemyDefeated = true;
+            }
+
             if (player->isDefeated()) {
                 std::cout << "You have been defeated by the Skorz mascot!\n";
                 playerDefeated = true;

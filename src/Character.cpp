@@ -38,3 +38,7 @@ void Character::setDamage(int damage) {
 void Character::takeDamage(int damage) { 
     health -= damage;
 }
+
+bool Character::isDefeated() const {
+    return health <= 0;
+}

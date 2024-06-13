@@ -17,7 +17,7 @@
 #include "Skorz.h"
 
 int main() {
-    std::shared_ptr<Room> startRoom = std::make_shared<FxB1>();
+    std::shared_ptr<Room> startRoom = std::make_shared<Skorz>();
     std::shared_ptr<Room> kansupRoom = std::make_shared<KanSup>();
     std::shared_ptr<Room> foodhallRoom = std::make_shared<FoodHall>();
     std::shared_ptr<Room> vinesRoom = std::make_shared<Vines>();

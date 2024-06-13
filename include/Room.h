@@ -20,6 +20,10 @@ public:
 
     // ITEM HANDLING
     void addItem(std::shared_ptr<Item> item);
+    void addItem(std::shared_ptr<Item> item) const {
+        const_cast<Room*>(this)->addItem(item);
+    }
+    
     void removeItem(const std::string& itemName);
     std::shared_ptr<Item> getItem(const std::string& itemName);
     std::shared_ptr<Item> retrieveItem(const std::string& itemName);
