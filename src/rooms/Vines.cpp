@@ -72,6 +72,7 @@ void Vines::handleEnterTime(const std::string &time) const
         {
             std::cout << "Incorrect time. You've used all your attempts. The security system has activated, and the elevator is now locked.\n";
             continueExaminingV = false;
+            ZOOrkEngine::instance().requestRestart();
         }
     }
 }
