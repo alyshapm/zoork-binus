@@ -2,11 +2,12 @@
 #include "Player.h"
 #include "Dice.h"
 #include "Utilities.h"
+#include "ZOOrkEngine.h"
 #include <iostream>
 #include <iomanip>
 
 Skorz::Skorz() : Room("Skorz", "You enter the Skorz room.\n"
-    "The atmosphere is tense, and you can sense something lurking in the shadows.\n") {
+    "The atmosphere is tense, and you can sense something lurking in the shadows.") {
     skorzMascot = std::make_shared<Enemy>("Skorz Mascot", "A terrifying Skorz mascot come to life.", 25, 10, 10);
 }
 
@@ -19,6 +20,12 @@ void Skorz::handleExamine(const std::string& object) const {
                   << "It seems to be getting closer… After a few moments, the shadow fully materializes into a terrifying\n"
                   << "Skorz mascot come to life. Its eyes glow with an eerie light, and its smile is stretched into a sinister grin.\n"
                   << "There is a slide on the west side of the room which can be used to escape the fight\n";
+    } else if(object == "lift" || object == "elevator") {
+        if (elevator->isLocked()) {
+            std::cout << "What elevator?\n";
+        } else {
+            std::cout << "After defeating the mascot, an open elevator appears in front of you. It appears to only go up.\n";
+        }
     } else {
         std::cout << "You examine the " << object << ", but there's nothing noteworthy about it.\n";
     }
@@ -39,7 +46,6 @@ void Skorz::handleFight(const std::string& enemy) const {
             std::cout << "| Mascot HP: " << std::setw(3) << std::left << skorzMascot->getHealth() << "         |\n";
             std::cout << "+------------------------+\n";
             std::cout << "Type 'attack' to attack or 'run' to escape!\n";
-            std::cout << player->getAttackModifier() << "\n";
             std::cout << "> ";
 
             std::string choice;
@@ -83,7 +89,8 @@ void Skorz::handleFight(const std::string& enemy) const {
                 std::cout << "You have defeated the Skorz mascot!\n";
                 std::shared_ptr<Item> swordItem = std::make_shared<Item>("Sword", "A sharp blade. Equipping it gives you a higher chance of hitting an attack (+2)", ItemType::WEAPON, 5);
                 addItem(swordItem);
-                std::cout << "The enemy drops a sword!\n";
+                std::cout << "The enemy drops a sword! You notice an elevator behind where the monster used to stand.\n";
+                elevator->unlock();
                 enemyDefeated = true;
             }
 

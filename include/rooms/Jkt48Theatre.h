@@ -17,6 +17,13 @@ public:
     void handleExamine(const std::string& object) const override;
     void handleRead(const std::string& object) const override;
     void handleDance() override;
+
+    void setPassage(std::shared_ptr<Passage> passage){
+        backstage = passage;
+    }
+
+private:
+    std::shared_ptr<Passage> backstage;
 };
 
 #endif // ZOORK_JKT48THEATRE_ROOM_H

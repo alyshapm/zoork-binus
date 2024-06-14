@@ -27,6 +27,7 @@ int main() {
     std::shared_ptr<Room> rockClimbingRoom = std::make_shared<RockClimbing>();
     std::shared_ptr<Room> jkt48TheatreRoom = std::make_shared<Jkt48Theatre>();
     std::shared_ptr<Room> skorzRoom = std::make_shared<Skorz>();
+    std::shared_ptr<Room> binusFXRoom = std::make_shared<BinusFX>();
 
     // create stairs from fxb1 to kansup
     Passage::createBasicPassage("Staircase",
@@ -73,6 +74,20 @@ int main() {
 
     std::shared_ptr<Passage> wall = rockClimbingRoom->getPassage("up");
     std::static_pointer_cast<RockClimbing>(rockClimbingRoom)->setPassage(wall);
+
+    Passage::createBasicPassage("Backstage",
+        "The backstage passages behind the theatre stage",
+        jkt48TheatreRoom.get(), skorzRoom.get(), "north", true, true);
+
+    std::shared_ptr<Passage> backstage = jkt48TheatreRoom->getPassage("north");
+    std::static_pointer_cast<Jkt48Theatre>(jkt48TheatreRoom)->setPassage(backstage);
+
+    Passage::createBasicPassage("Elevator",
+        "An elevator that leads you to the highest floor",
+        skorzRoom.get(), binusFXRoom.get(), "up", true, true);
+
+    std::shared_ptr<Passage> elevator = skorzRoom->getPassage("up");
+    std::static_pointer_cast<Skorz>(skorzRoom)->setPassage(elevator);
 
     ZOOrkEngine zoork(startRoom);
 
