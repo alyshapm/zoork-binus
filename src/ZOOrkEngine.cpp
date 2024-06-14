@@ -26,6 +26,11 @@ ZOOrkEngine& ZOOrkEngine::instance() {
 
 void ZOOrkEngine::run() {
     while (!gameOver) {
+
+        if (player->isDefeated()) {
+            handleDeathCommand();
+        }
+
         std::cout << "> ";
 
         std::string input;
@@ -395,6 +400,40 @@ void ZOOrkEngine::handleStatsCommand() {
     std::cout << "  Armor: " << player->getArmorClass() << "\n";
     std::cout << "  Strength Modifier: " << player->getAttackBonus() << "\n";
 }
+
+void ZOOrkEngine::handleDeathCommand() {
+    while (true) {
+        std::string input;
+        std::cout << "You have died!\n";
+        std::cout << "Do you want to restart or quit the game? (restart/quit)\n> ";
+        std::getline(std::cin, input);
+        std::string lowerInput = makeLowercase(input);
+
+        if (lowerInput == "restart" || lowerInput == "r") {
+            std::cout << "Restarting the game...\n";
+            player->reset();
+
+            std::cout << "Game has been restarted. You are now back at the starting room.\n";
+            break;
+        } else if (lowerInput == "quit" || lowerInput == "q") {
+            std::cout << "Are you sure you want to QUIT? (yes/no)\n> ";
+            std::getline(std::cin, input);
+            std::string quitStr = makeLowercase(input);
+
+            if (quitStr == "y" || quitStr == "yes") {
+                gameOver = true;
+                break;
+            } else if (quitStr == "n" || quitStr == "no") {
+                std::cout << "Please choose to either restart or quit.\n";
+            } else {
+                std::cout << "Invalid input. Please choose to either restart or quit.\n";
+            }
+        } else {
+            std::cout << "Invalid input. Please choose to either restart or quit.\n";
+        }
+    }
+}
+
 
 
 void ZOOrkEngine::handleHelpCommand() {

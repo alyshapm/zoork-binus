@@ -3,6 +3,12 @@
 
 Player *Player::playerInstance = nullptr;
 
+void Player::reset() {
+    health = maxHealth;
+    clearInventory();
+    clearStatusEffects();
+}
+
 void Player::setCurrentRoom(Room* room) {
     currentRoom = room;
 }
@@ -41,6 +47,10 @@ void Player::takeDamage(int damage) {
 
 int Player::getAttackModifier() const {
     return attackBonus;
+}
+
+int Player::getMaxHealth() const {
+    return maxHealth;
 }
 
 void Player::addItem(std::shared_ptr<Item> item) {
@@ -159,6 +169,11 @@ void Player::listStatusEffects() const {
     for (const auto& effect : statusEffects) {
         std::cout << "- " << effect.first << ": " << effect.second << "\n";
     }
+}
+
+void Player::clearStatusEffects() {
+    std::cout << "Clearing status effects.\n";
+    statusEffects.clear();
 }
 
 bool Player::isDefeated() const {

@@ -25,12 +25,15 @@ public:
     void setCurrentRoom(Room*);
     Room* getCurrentRoom() const;
 
+    void reset();
+    
     // Combat functionality
     void attack(Enemy& enemy);
     bool defend(int enemyAttackBonus);
     void takeDamage(int damage);
     bool isDefeated() const;
     int getHealth() const;
+    int getMaxHealth() const;
     int getDamage() const;
     int getAttackModifier() const;
 
@@ -49,6 +52,7 @@ public:
     void addStatusEffect(const std::string& effectName, const std::string& effectDescription);
     void removeStatusEffect(const std::string& effectName);
     void listStatusEffects() const;
+    void clearStatusEffects();
 
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
@@ -61,12 +65,13 @@ private:
     std::unordered_map<std::string, std::string> statusEffects;
 
     Player() : Character("You", "You are a person, alike in dignity to any other, but uniquely you."),
-               currentRoom(new NullRoom()), attackBonus(0), damage(6), armorClass(10), health(100) {}
+               currentRoom(new NullRoom()), attackBonus(0), damage(6), armorClass(10), health(100), maxHealth(100) {}
 
     int attackBonus; // Player's bonus to attack rolls (add with modifier if weapon included)
     int damage;      // Number for roll (d6 damage)
     int armorClass;  // Armor class of the player 
     int health;      // Health points of the player
+    int maxHealth;   // Max health of the player.
 };
 
 #endif // ZOORK_PLAYER_H

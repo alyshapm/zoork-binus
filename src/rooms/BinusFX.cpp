@@ -10,7 +10,7 @@ BinusFX::BinusFX() : Room("Binus FX",
     "Strange contraptions hum and whir, casting eerie shadows on the walls. \n"
     "At the far end of the room, a figure silhouetted against a massive computer screen turns to face you.\n"
     "It's Dr. Z, his eyes glinting with a mix of madness and brilliance.") {
-        drZ = std::make_shared<Enemy>("Dr. Z", "The final boss of FX.", 100, 10, 10);
+        drZ = std::make_shared<Enemy>("Dr. Z", "The final boss of FX.", 500, 10, 10);
 }
 
 void BinusFX::handleExamine(const std::string& object) const {
