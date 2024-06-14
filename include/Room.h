@@ -55,6 +55,7 @@ private:
     virtual void handleEscape(const std::string& object) const;
     virtual void handleGo(const std::string& object) const;
     virtual void handleOpen(const std::string& object) const;
+    virtual void handleDance();
 };
 
 #endif // ZOORK_ROOM_H

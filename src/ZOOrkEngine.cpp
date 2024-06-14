@@ -84,6 +84,8 @@ void ZOOrkEngine::run() {
             handleDrinkCommand(arguments);
         } else if (command == "stats") {
             handleStatsCommand();
+        } else if (command == "dance") {
+            handleDanceCommand();
         } else {
             std::cout << "I don't understand that command.\n";
         }
@@ -443,7 +445,9 @@ void ZOOrkEngine::handleDeathCommand() {
     }
 }
 
-
+void ZOOrkEngine::handleDanceCommand() {
+    player->getCurrentRoom()->executeCommand("dance");
+}
 
 void ZOOrkEngine::handleHelpCommand() {
     std::cout << "Available commands:\n";
@@ -466,5 +470,6 @@ void ZOOrkEngine::handleHelpCommand() {
     std::cout << "  fight <opponent>     - Engage in combat with an opponent\n";
     std::cout << "  drink <potion>       - Drink a potion\n";
     std::cout << "  stats                - Show your current player statistics\n";
+    std::cout << "  dance                - Do a little jig! May be useful in some rooms\n";
     std::cout << "  help                 - Show this help message\n";
 }

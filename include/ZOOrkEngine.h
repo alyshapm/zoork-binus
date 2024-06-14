@@ -49,6 +49,7 @@ private:
     void handleHelpCommand();
     void handleStatsCommand();
     void handleDeathCommand();
+    void handleDanceCommand();
 
     std::vector<std::string> tokenizeString(const std::string &input);
     std::string concatenateArguments(const std::vector<std::string>& arguments);

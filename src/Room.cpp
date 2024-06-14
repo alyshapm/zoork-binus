@@ -114,6 +114,8 @@ void Room::executeCommand(const std::string& command) {
         handleOpen(object);
     } else if (mainCommand == "fight") {
         handleFight(object);
+    } else if (mainCommand == "dance") {
+        handleDance();
     } else {
         std::cout << "Unknown command: " << mainCommand << std::endl;
     }
@@ -153,4 +155,32 @@ void Room::handleGo(const std::string& object) const {
 
 void Room::handleOpen(const std::string& object) const {
     std::cout << "You try to open " << object << ".\n";
+}
+
+void Room::handleDance() {
+    std::cout << "List your dance moves! (left, right, up, or down), type 'stop' to end.\n";
+    while (true) {
+        std::string input;
+        std::cout << "Dance: ";
+        std::getline(std::cin, input);
+
+        std::string lowercaseInput = makeLowercase(input);
+        if (lowercaseInput == "stop") {
+            std::cout << "You stop dancing.\n";
+            return;
+        }
+
+        bool validMove = false;
+        for (const std::string& move : {"left", "right", "up", "down"}) {
+            if (lowercaseInput == move) {
+                validMove = true;
+                std::cout << "You dance " << lowercaseInput << "\n";
+                break;
+            }
+        }
+
+        if (!validMove) {
+            std::cout << "That's not a dance move.. \n";
+        }
+    }
 }
