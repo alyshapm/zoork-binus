@@ -79,6 +79,7 @@ void BinusFX::handleFight(const std::string& enemy) const {
             if (drZ->isDefeated()) {
                 std::cout << "You have defeated Dr. Z!\n";
                 enemyDefeated = true;
+                Player::instance()->finishGame();
             }
 
             if (player->isDefeated()) {

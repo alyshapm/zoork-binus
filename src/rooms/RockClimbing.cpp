@@ -20,9 +20,10 @@ void RockClimbing::handleTalk(const std::string &object) const
 {
     if (object == "staff member" || object == "staff")
     {
-        std::cout << "The rock climb is fun but dangerous be careful when you climb,\n"
-                     "(The staff member sighs) When was the last time someone made it to the top? eons ago I would say. Many have tried, \n"
-                     "but few have conquered it. Be sure you're prepared before attempting the climb\n";
+        std::cout << "'The rock climb is fun but dangerous be careful when you climb.'\n"
+                     "(The staff member sighs) 'When was the last time someone made it to the top?'\n"
+                     "'Eons ago I would say. Many have tried, but few have conquered it.'\n"
+                     "'Be sure you're prepared before attempting the climb'\n";
     }
     else
     {

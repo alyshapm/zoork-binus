@@ -26,6 +26,8 @@ public:
     Room* getCurrentRoom() const;
 
     void reset();
+    void finishGame();
+    bool hasFinishedGame() const;
     
     // Combat functionality
     void attack(Enemy& enemy);
@@ -40,6 +42,7 @@ public:
     void addItem(std::shared_ptr<Item> item);
     std::shared_ptr<Item> getItem(const std::string& itemName) const;
     std::shared_ptr<Item> removeItem(const std::string& itemName);
+    const std::vector<std::shared_ptr<Item>>& getInventory() const;
     void listInventory() const;
     void clearInventory();
     void checkItemDescription(const std::string& itemName) const;
@@ -73,6 +76,7 @@ private:
     int armorClass;  // Armor class of the player 
     int health;      // Health points of the player
     int maxHealth;   // Max health of the player.
+    bool gameFinished = false; // Checks if player has finished game
 };
 
 #endif // ZOORK_PLAYER_H

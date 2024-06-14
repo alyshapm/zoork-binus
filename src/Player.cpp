@@ -9,6 +9,14 @@ void Player::reset() {
     clearStatusEffects();
 }
 
+void Player::finishGame() {
+    gameFinished = true;
+}
+
+bool Player::hasFinishedGame() const {
+    return gameFinished;
+}
+
 void Player::setCurrentRoom(Room* room) {
     currentRoom = room;
 }
@@ -96,6 +104,10 @@ void Player::clearInventory() {
     std::cout << "Your inventory has been cleared.\n";
 }
 
+const std::vector<std::shared_ptr<Item>>& Player::getInventory() const {
+    return inventory;
+}
+
 void Player::checkItemDescription(const std::string& itemName) const {
     for (const auto& item : inventory) {
         if (item->getName() == itemName) {
@@ -108,18 +120,21 @@ void Player::checkItemDescription(const std::string& itemName) const {
 
 void Player::equipItem(const std::string& itemName) {
     auto item = getItem(itemName);
-    if (item) {
+    // Cannot equip a potion
+    if (item->getType() != ItemType::POTION) {
         // Check if the player already has an item equipped
         if (!equippedItems.empty()) {
             // If so, unequip the currently equipped item
             auto equippedItem = equippedItems.begin()->first;
             unequipItem(equippedItem);
         }
+        // Equip the new item
         equippedItems[itemName] = item;
         std::cout << "You have equipped the " << itemName << ".\n";
+        // Update the attack bonus if it is a weapon
         if (item->getType() == ItemType::WEAPON) {
-            attackBonus += item->getModifier();
-        }
+            setAttackBonus(attackBonus+= item->getModifier());
+        } 
     } else {
         std::cout << "You don't have a " << itemName << " to equip.\n";
     }
@@ -131,7 +146,7 @@ void Player::unequipItem(const std::string& itemName) {
         equippedItems.erase(it);
         std::shared_ptr<Item> item = it->second;
         if (item->getType() == ItemType::WEAPON) {
-            attackBonus -= item->getModifier();
+            setAttackBonus(attackBonus-= item->getModifier());
         }
         std::cout << "You have unequipped the " << itemName << ".\n";
     } else {

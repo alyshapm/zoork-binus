@@ -9,9 +9,9 @@ public:
     Lobby() : Room("Lobby", 
     "The lobby is buzzing with activity. Students rush to classes,\n"
     "professors chat in hushed tones, and a giant digital billboard displays\n"
-    "to the east is what seems like a gray wall.") {
+    "To the east is what seems like a gray wall.") {
         // Add crowbar to room
-        auto flashlight = std::make_shared<Item>("Flashlight", "A handy flashlight, it might help you see through things.");
+        auto flashlight = std::make_shared<Item>("Flashlight", "A handy flashlight, it might help you see through things.", ItemType::GENERIC);
         addItem(flashlight);
     }
     

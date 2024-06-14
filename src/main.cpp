@@ -52,9 +52,9 @@ int main() {
     // create lift from vines to lobby
     Passage::createBasicPassage("Lift",
         "An elevator that takes you to another floor.",
-        vinesRoom.get(), fxLobbyRoom.get(), "in", true, true);
+        vinesRoom.get(), fxLobbyRoom.get(), "up", true, true);
 
-    std::shared_ptr<Passage> lift = vinesRoom->getPassage("in");
+    std::shared_ptr<Passage> lift = vinesRoom->getPassage("up");
     std::static_pointer_cast<Vines>(vinesRoom)->setPassage(lift);
     
     Passage::createBasicPassage("1st Floor East",

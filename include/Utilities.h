@@ -22,5 +22,4 @@ inline std::string removeWhitespace(const std::string& str) {
     return result;
 }
 
-
 #endif // UTILITIES_H

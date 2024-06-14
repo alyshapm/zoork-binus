@@ -18,7 +18,7 @@ void Sederhana::handleExamine(const std::string& object) const {
         std::cout << "A label read Rise, might this be a hint...\n";
     } else if (object == "table") {
         if (player->getEquippedItem("flashlight")) {
-            std::shared_ptr<Item> knifeItem = std::make_shared<Item>("Knife", "A short sharp blade. It might be better than fighting bare handed.", ItemType::WEAPON, 1);
+            std::shared_ptr<Item> knifeItem = std::make_shared<Item>("Knife", "A short sharp blade. It might be better than fighting bare handed.", ItemType::WEAPON, 2);
             addItem(knifeItem);
             std::cout << "You can see a knife on the table, you might need it later...\n";
             std::cout << "Standing next to the table, you understand the presence of a dark spot.\n";
@@ -33,7 +33,7 @@ void Sederhana::handleExamine(const std::string& object) const {
 
 void Sederhana::handleTalk(const std::string& object) const {
     if (object == "lady") {
-        std::cout << "it's too loud to hear what she is saying but she points at the dark spot and her lips read the word there.\n";
+        std::cout << "It's too loud to hear what she is saying but she points at the dark spot and her lips read the word there.\n";
     } else {
         std::cout << "You read the " << object << ", but find yourself unable to understand it.\n";
     }
