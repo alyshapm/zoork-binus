@@ -2,6 +2,7 @@
 #define ZOORK_FXB1_ROOM_H
 
 #include "Room.h"
+#include "Enemy.h"
 #include <iostream>
 #include <random>
 
@@ -28,6 +29,7 @@ public:
     void handleTalk(const std::string& object) const override;
     void handleRead(const std::string& object) const override;
     void handleEnterPasscode(const std::string& passcode) const;
+    void fightSecurityGuard() const;
 
     void setPassage(std::shared_ptr<Passage> passage){
         steelDoor = passage;

@@ -72,7 +72,7 @@ void Skorz::handleFight(const std::string& enemy) const {
 
             // Mascot's turn to attack
             if (!skorzMascot->isDefeated()) {
-                int enemyAttackRoll = Dice::roll(20);
+                int enemyAttackRoll = Dice::roll(skorzMascot->getArmorClass());
                 std::cout << "The Skorz mascot attacks you!\n";
                 std::cout << "It rolled a " << enemyAttackRoll << " for attack.\n";
 

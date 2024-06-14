@@ -1,5 +1,10 @@
 #include "FxB1.h"
+#include "Player.h"
+#include "Dice.h"
+#include "Utilities.h"
 #include "ZOOrkEngine.h"
+#include <iostream>
+#include <iomanip>
 
 bool continueExamining = false;
 
@@ -77,7 +82,78 @@ void FxB1::handleEnterPasscode(const std::string& passcode) const {
             std::cout << "Access Denied. You've used all your attempts. The security system has activated, and you hear footsteps approaching.\n"
                       << "You've been captured by the security guard!\n";
             continueExamining = false;
-            ZOOrkEngine::instance().requestRestart();
+            fightSecurityGuard();
+        }
+    }
+}
+
+void FxB1::fightSecurityGuard() const {
+    // Create a security guard enemy
+    std::shared_ptr<Enemy> securityGuard = std::make_shared<Enemy>("Security Guard", "The guard has awoken and he's ready to fight!", 15, 5, 5);
+    Player* player = Player::instance();
+
+    std::cout << "You engage in combat with the security guard!\n";
+
+    bool enemyDefeated = false;
+    bool playerDefeated = false;
+
+    while (!enemyDefeated && !playerDefeated) {
+        std::cout << "+------------------------+\n";
+        std::cout << "| Your HP: " << std::setw(3) << std::left << player->getHealth() << "           |\n";
+        std::cout << "| Guard HP: " << std::setw(3) << std::left << securityGuard->getHealth() << "          |\n";
+        std::cout << "+------------------------+\n";
+        std::cout << "Type 'attack' to attack or 'run' to escape!\n";
+        std::cout << "> ";
+
+        std::string choice;
+        std::getline(std::cin, choice);
+
+        if (choice == "attack") {
+            int playerAttackRoll = Dice::roll(20) + player->getAttackModifier();
+            std::cout << "You rolled a " << playerAttackRoll << " for attack.\n";
+
+            if (playerAttackRoll >= securityGuard->getArmorClass()) {
+                int damage = Dice::roll(player->getDamage());
+                std::cout << "You hit the Security Guard and deal " << damage << " damage!\n";
+                securityGuard->takeDamage(damage);
+            } else {
+                std::cout << "You missed the Security Guard!\n";
+            }
+        } else if (choice == "run") {
+            std::cout << "You can't run! Theres no way out.\n";
+            continue;
+        } else {
+            std::cout << "Invalid choice!\n";
+            continue;
+        }
+
+        // Security's turn to attack
+        if (!securityGuard->isDefeated()) {
+            int enemyAttackRoll = Dice::roll(securityGuard->getArmorClass());
+            std::cout << "The Security Guard attacks you!\n";
+            std::cout << "It rolled a " << enemyAttackRoll << " for attack.\n";
+
+            if (enemyAttackRoll >= player->getArmorClass()) {
+                int enemyDamage = Dice::roll(securityGuard->getDamage());
+                std::cout << "The Security Guard hits you and deals " << enemyDamage << " damage!\n";
+                player->takeDamage(enemyDamage);
+            } else {
+                std::cout << "You managed to defend against the Skorz mascot's attack!\n";
+            }
+        }
+
+        if (securityGuard->isDefeated()) {
+            std::cout << "You have defeated the Security Guard!\n";
+            std::shared_ptr<Item> taser = std::make_shared<Item>("Taser", "A small taser. Equipping it gives you a higher chance of hitting an attack (+1)", ItemType::WEAPON, 1);
+            addItem(taser);
+            std::cout << "The enemy drops a keycard and a taser! You use the card to unlock the steel door.\n";
+            steelDoor->unlock();
+            enemyDefeated = true;
+        }
+
+        if (player->isDefeated()) {
+            std::cout << "You have been defeated by the Security Guard!\n";
+            playerDefeated = true;
         }
     }
 }

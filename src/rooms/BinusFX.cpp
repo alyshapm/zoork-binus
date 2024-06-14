@@ -63,7 +63,7 @@ void BinusFX::handleFight(const std::string& enemy) const {
 
             // Mascot's turn to attack
             if (!drZ->isDefeated()) {
-                int enemyAttackRoll = Dice::roll(20);
+                int enemyAttackRoll = Dice::roll(drZ->getArmorClass());
                 std::cout << "Dr. Z attacks you!\n";
                 std::cout << "He rolled a " << enemyAttackRoll << " for attack.\n";
 
