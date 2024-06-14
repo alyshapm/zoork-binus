@@ -10,7 +10,7 @@ void Sederhana::handleExamine(const std::string& object) const {
         std::cout << "The menu features classic Indonesian dishes like Nasi Goreng, Satay, and Gado-Gado. A note at the bottom mentions a Potion! for adventurers\n";
     } else if (object == "dark spot") {
         if (player->getEquippedItem("flashlight")) {
-            std::cout << "You shine your flashlight at the dark spot...\n A table appears, there seems to be an object on it…\n";
+            std::cout << "You shine your flashlight at the dark spot...\nA table appears, there seems to be an object on it...\n";
         } else {
             std::cout << "It's too dark to see, you need a some light...\n";
         }
@@ -18,7 +18,11 @@ void Sederhana::handleExamine(const std::string& object) const {
         std::cout << "A label read Rise, might this be a hint...\n";
     } else if (object == "table") {
         if (player->getEquippedItem("flashlight")) {
-            std::cout << "You can see a (weapon) on the table\n";
+            std::shared_ptr<Item> knifeItem = std::make_shared<Item>("Knife", "A short sharp blade. It might be better than fighting bare handed.", ItemType::WEAPON, 1);
+            addItem(knifeItem);
+            std::cout << "You can see a knife on the table, you might need it later...\n";
+            std::cout << "Standing next to the table, you understand the presence of a dark spot.\n";
+            std::cout << "Up north you can see the silhouette of a never ending wall, should you check it out?\n";
         } else {
             std::cout << "The tables are all full, you should talk to the person at the counter.\n";
         }

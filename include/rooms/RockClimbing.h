@@ -12,6 +12,14 @@ public:
     
     void handleExamine(const std::string& object) const override;
     void handleTalk(const std::string& object) const override;
+    void handleClimbWall() const;
+
+    void setPassage(std::shared_ptr<Passage> passage){
+        wall = passage;
+    }
+
+private:
+    std::shared_ptr<Passage> wall;
 };
 
 #endif // ZOORK_ROCKCLIMBING_ROOM_H

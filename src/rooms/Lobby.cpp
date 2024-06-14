@@ -62,7 +62,7 @@ void Lobby::handleGetThroughSmoke() const{
         smoke->unlock();
         player->unequipItem("flashlight");
     } else {
-            std::cout << "A gray wall blocks your way, it seems like smoke… you can take a closer look\n";
+            std::cout << "A gray wall blocks your way, it seems like smoke... you can take a closer look\n";
             return;
     }
 }

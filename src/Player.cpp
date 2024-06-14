@@ -171,6 +171,10 @@ void Player::listStatusEffects() const {
     }
 }
 
+bool Player::hasStatusEffect(const std::string& effectName) const {
+    return statusEffects.find(effectName) != statusEffects.end();
+}
+
 void Player::clearStatusEffects() {
     std::cout << "Clearing status effects.\n";
     statusEffects.clear();

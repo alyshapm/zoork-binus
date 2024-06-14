@@ -7,6 +7,7 @@
 #include <cctype>
 #include <memory>
 #include <Lobby.h>
+#include <RockClimbing.h>
 
 ZOOrkEngine* ZOOrkEngine::instance_ = nullptr;
 
@@ -153,6 +154,14 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
         Lobby* lobbyInstance = dynamic_cast<Lobby*>(currentRoom);
         if (lobbyInstance) {
             lobbyInstance->handleGetThroughSmoke();
+        }
+    }
+
+    if (currentRoom->getName() == "Rock Climbing Station" && (direction == "up" || direction == "u")) {
+        // Cast the currentRoom pointer to a RockClimbing pointer
+        RockClimbing* rockClimbingInstance = dynamic_cast<RockClimbing*>(currentRoom);
+        if (rockClimbingInstance) {
+            rockClimbingInstance->handleClimbWall();
         }
     }
 
@@ -363,7 +372,7 @@ void ZOOrkEngine::handleDrinkCommand(const std::vector<std::string> arguments) {
             player->addStatusEffect("Weakened", "Your armor class has been reduced by 5");
             // Remove the potion from the inventory after use
             player->removeItem(itemName);
-        } else if (lowercaseItemName == "sederhana potion") {
+        } else if (lowercaseItemName == "rise potion") {
             player->addStatusEffect("Strength", "You are now able to do more things..");
             std::cout << "You have used the " << itemName << " and you now feel strong enough to even climb a mountain!\n";
             player->removeItem(itemName);

@@ -52,6 +52,7 @@ public:
     void addStatusEffect(const std::string& effectName, const std::string& effectDescription);
     void removeStatusEffect(const std::string& effectName);
     void listStatusEffects() const;
+    bool hasStatusEffect(const std::string &effectName) const;
     void clearStatusEffects();
 
     Player(const Player &) = delete;

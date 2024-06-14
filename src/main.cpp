@@ -67,6 +67,13 @@ int main() {
         "A pathway to other stores.",
         sederhanaRoom.get(), rockClimbingRoom.get(), "north", true, false);
 
+    Passage::createBasicPassage("Climbing Wall",
+        "A hike to the theatre.",
+        rockClimbingRoom.get(), jkt48TheatreRoom.get(), "up", true, true);
+
+    std::shared_ptr<Passage> wall = rockClimbingRoom->getPassage("up");
+    std::static_pointer_cast<RockClimbing>(rockClimbingRoom)->setPassage(wall);
+
     ZOOrkEngine zoork(startRoom);
 
     zoork.run();

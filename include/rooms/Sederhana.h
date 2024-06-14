@@ -11,7 +11,7 @@ public:
     "Soft gamelan music plays in the background as patrons enjoy their meals.\n"
     "a mysterious potion gleams on the counter."
     "A dark spot is present at the back of the room") {
-        auto potion = std::make_shared<Item>("Sederhana Potion", "A weird looking liquid that could wield some powers...", ItemType::POTION, 0);
+        auto potion = std::make_shared<Item>("Rise Potion", "A weird looking liquid that could wield some powers...", ItemType::POTION, 0);
         addItem(potion);
     }
     
