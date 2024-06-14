@@ -110,7 +110,7 @@ void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
         // Reset the game state
         player->setCurrentRoom(startRoom.get());
         player->getCurrentRoom()->enter();
-        player->clearInventory();
+        player->reset();
     }
     else {
         std::cout << "Continuing in the current room.\n";
@@ -130,9 +130,8 @@ void ZOOrkEngine::handleRoomRestartCommand(std::vector<std::string> arguments, s
         for (const auto& item : player->getInventory()) {
         player->getCurrentRoom()->addItem(item);
         }
-        
-        player->clearInventory();
-}
+        player->reset();
+}      
 
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     if (arguments.empty()) {
@@ -445,7 +444,6 @@ void ZOOrkEngine::handleDeathCommand() {
 
             if (quitStr == "y" || quitStr == "yes") {
                 gameOver = true;
-                break;
             } else if (quitStr == "n" || quitStr == "no") {
                 std::cout << "Please choose to either restart or quit.\n";
             } else {
@@ -471,6 +469,8 @@ void ZOOrkEngine::handleGameOverCommand() {
 
         if (lowerInput == "restart" || lowerInput == "r") {
             std::cout << "Restarting the game...\n";
+            player->setCurrentRoom(startRoom.get());
+            player->getCurrentRoom()->enter();
             player->reset();
 
             std::cout << "Game has been restarted. You are now back at the starting room.\n";

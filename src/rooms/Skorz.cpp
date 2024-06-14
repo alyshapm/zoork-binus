@@ -17,9 +17,8 @@ void Skorz::handleExamine(const std::string& object) const {
                   << "You sense a shadowy figure from the corner of your eyes. When you turn to look, it's gone.\n";
     } else if (object == "shadow" || object == "shadows") {
         std::cout << "The shadow stretches across the floor, taking on a grotesque, monstrous shape.\n"
-                  << "It seems to be getting closer… After a few moments, the shadow fully materializes into a terrifying\n"
-                  << "Skorz mascot come to life. Its eyes glow with an eerie light, and its smile is stretched into a sinister grin.\n"
-                  << "There is a slide on the west side of the room which can be used to escape the fight\n";
+                  << "It seems to be getting close... After a few moments, the shadow fully materializes into a terrifying\n"
+                  << "Skorz mascot come to life. Its eyes glow with an eerie light, and its smile is stretched into a sinister grin.\n";
     } else if(object == "lift" || object == "elevator") {
         if (elevator->isLocked()) {
             std::cout << "What elevator?\n";
@@ -89,7 +88,7 @@ void Skorz::handleFight(const std::string& enemy) const {
                 std::cout << "You have defeated the Skorz mascot!\n";
                 std::shared_ptr<Item> swordItem = std::make_shared<Item>("Sword", "A sharp blade. Equipping it gives you a higher chance of hitting an attack (+2)", ItemType::WEAPON, 5);
                 addItem(swordItem);
-                std::cout << "The enemy drops a sword! You notice an elevator behind where the monster used to stand.\n";
+                std::cout << "The enemy drops a sword! You notice an elevator behind where the monster used to stand, you can now go up.\n";
                 elevator->unlock();
                 enemyDefeated = true;
             }
