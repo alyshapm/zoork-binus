@@ -14,7 +14,7 @@ void FxB1::handleExamine(const std::string& object) const {
             std::cout << "The door is unlocked. A staircase awaits you.\n";
         }
     } else if (object == "toolbox") {
-        std::cout << "It's unlocked and contains a rope, a sturdy crowbar, and a note.\n";
+        std::cout << "It's unlocked and contains a hammer, a sturdy crowbar, and a note.\n";
     } else if (object == "keypad") {
         std::cout << "You examine the keypad.\n";
         std::string input;

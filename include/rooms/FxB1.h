@@ -14,8 +14,14 @@ public:
         correctPasscode = generateRandomPasscode();
 
         // Add crowbar to room
-        auto crowbar = std::make_shared<Item>("Crowbar", "A sturdy crowbar, it looks useful for prying things open.");
+        auto crowbar = std::make_shared<Item>("Crowbar", "A sturdy crowbar, it looks useful for prying things open. (+1 Attack)", ItemType::WEAPON, 1);
         addItem(crowbar);
+
+        auto hammer = std::make_shared<Item>("Hammer", "A heavy hammer. It looks like you could deal a heavier blow if you equip it. (+2 Attack)", ItemType::WEAPON, 2);
+        addItem(hammer);
+
+        auto note = std::make_shared<Item>("Note", "Just a shopping list you picked up from the toolbox.", ItemType::GENERIC);
+        addItem(note);
     }
 
     void handleExamine(const std::string& object) const override;

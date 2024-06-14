@@ -81,7 +81,7 @@ void Skorz::handleFight(const std::string& enemy) const {
 
             if (skorzMascot->isDefeated()) {
                 std::cout << "You have defeated the Skorz mascot!\n";
-                std::shared_ptr<Item> swordItem = std::make_shared<Item>("Sword", "A sharp blade. Equipping it gives you a higher chance of hitting an attack (+2)", ItemType::WEAPON, 2);
+                std::shared_ptr<Item> swordItem = std::make_shared<Item>("Sword", "A sharp blade. Equipping it gives you a higher chance of hitting an attack (+2)", ItemType::WEAPON, 5);
                 addItem(swordItem);
                 std::cout << "The enemy drops a sword!\n";
                 enemyDefeated = true;
