@@ -37,6 +37,15 @@ std::shared_ptr<Passage> Room::getPassage(const std::string &direction) {
     }
 }
 
+std::shared_ptr<Passage> Room::getPassageC(const std::string &direction) {
+    auto it = passageMap.find(direction);
+    if (it != passageMap.end()) {
+        return it->second;
+    } else {
+        return std::make_shared<NullPassage>(this);
+    }
+}
+
 void Room::setPassage(std::shared_ptr<Passage> passage) {
     this->passage = passage;
 }
@@ -57,6 +66,15 @@ bool Room::isPassageLocked() const {
     return passage ? passage->isLocked() : false;
 }
 
+void Room::lockAllPassages() {
+    static const std::vector<std::string> directions = {"north", "south", "east", "west", "up", "down"};
+    for (const auto& direction : directions) {
+        std::shared_ptr<Passage> passage = getPassageC(direction);
+        if (passage) {
+            passage->lock();
+        }
+    }
+}
 
 void Room::addItem(std::shared_ptr<Item> item) {
     std::string itemNameLower = makeLowercase(item->getName());

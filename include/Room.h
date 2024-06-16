@@ -35,10 +35,13 @@ public:
     void addPassage(const std::string &, std::shared_ptr<Passage>);
     void removePassage(const std::string &);
     std::shared_ptr<Passage> getPassage(const std::string &);
+    std::shared_ptr<Passage> getPassageC(const std::string &direction);
     void setPassage(std::shared_ptr<Passage> passage);
     void unlockPassage();
     void lockPassage();
     bool isPassageLocked() const;
+
+    void lockAllPassages();
 
 private:
     std::map<std::string, std::shared_ptr<Passage>> passageMap;
