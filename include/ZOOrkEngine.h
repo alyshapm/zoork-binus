@@ -23,13 +23,10 @@ public:
 
     void requestRestart(std::shared_ptr<Room> start = nullptr);
 
-    void addRoom(const std::shared_ptr<Room>& room);
-
 private:
     Player* player;
     bool gameOver = false;
     std::shared_ptr<Room> startRoom;
-    std::vector<std::shared_ptr<Room>> rooms;
 
     void handleGoCommand(std::vector<std::string> arguments);
     void handleLookCommand(const std::vector<std::string>& arguments);

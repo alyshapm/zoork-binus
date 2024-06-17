@@ -91,17 +91,6 @@ int main() {
 
     ZOOrkEngine zoork(startRoom);
 
-    zoork.addRoom(startRoom);
-    zoork.addRoom(kansupRoom);
-    zoork.addRoom(foodhallRoom);
-    zoork.addRoom(vinesRoom);
-    zoork.addRoom(fxLobbyRoom);
-    zoork.addRoom(sederhanaRoom);
-    zoork.addRoom(rockClimbingRoom);
-    zoork.addRoom(jkt48TheatreRoom);
-    zoork.addRoom(skorzRoom);
-    zoork.addRoom(binusFXRoom);
-
     zoork.run();
 
     return 0;
