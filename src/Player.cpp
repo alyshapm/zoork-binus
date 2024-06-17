@@ -9,6 +9,10 @@ void Player::reset() {
     clearStatusEffects();
 }
 
+void Player::resetHealth() {
+    health = maxHealth;
+}
+
 void Player::finishGame() {
     gameFinished = true;
 }

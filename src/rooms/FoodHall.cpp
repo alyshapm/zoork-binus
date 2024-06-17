@@ -28,7 +28,7 @@ void FoodHall::handleTalk(const std::string &object) const
     {
         std::cout << "He hands you a weird liquid... the label reads 'healing'.\n" 
         "You might need it later.\n"
-        "You should talk to the cashier Bob, he knows a way up.\n";
+        "'You should talk to the cashier Bob, he knows a way up.'\n";
         std::shared_ptr<Item> potion = std::make_shared<Item>("Healing Potion", "It might be able to help you get over your injuries...", ItemType::POTION, 0);
         addItem(potion);
     }
@@ -41,6 +41,6 @@ void FoodHall::handleTalk(const std::string &object) const
     }
     else
     {
-        std::cout << "You talk to the " << object << ", but are answered with silence.\n";
+        std::cout << "You talk to " << object << ", but are answered with silence.\n";
     }
 }

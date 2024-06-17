@@ -38,6 +38,7 @@ public:
     int getMaxHealth() const;
     int getDamage() const;
     int getAttackModifier() const;
+    void resetHealth();
 
     void addItem(std::shared_ptr<Item> item);
     std::shared_ptr<Item> getItem(const std::string& itemName) const;
