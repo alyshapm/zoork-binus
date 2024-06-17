@@ -394,7 +394,6 @@ void ZOOrkEngine::handleDrinkCommand(const std::vector<std::string> arguments) {
             std::cout << "You feel lighter, as if all your injuries have healed!\n";
             player->removeItem("Healing Potion");
         }
-
     } else {
         std::cout << "You don't have a " << itemName << " or it's not a potion.\n";
     }
