@@ -23,6 +23,7 @@ public:
 
     void requestRestart();
     bool isRestartRequested() const;
+    void handleRestart();
 
 private:
     Player* player;

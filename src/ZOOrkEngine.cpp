@@ -123,6 +123,13 @@ void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
     }
 }
 
+void ZOOrkEngine::handleRestart() {
+    std::cout << "The game will be restarted...\n> ";
+    requestRestart();
+    player->reset();
+}
+
+
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     if (arguments.empty()) {
         std::cout << "Go where?\n";
