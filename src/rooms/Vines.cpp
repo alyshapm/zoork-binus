@@ -58,7 +58,7 @@ void Vines::handleEnterTime(const std::string &time) const
     const std::string correctTime = "09:10:15"; // Correct time for the keypad
     if (time == correctTime)
     {
-        std::cout << "Correct! The elevator door opens, and you can now enter the elevator.\n";
+        std::cout << "Correct! The elevator door opens, and you can now use the elevator to go up.\n";
         lift->unlock();
         continueExaminingV = false;
     }
@@ -72,7 +72,7 @@ void Vines::handleEnterTime(const std::string &time) const
         {
             std::cout << "Incorrect time. You've used all your attempts. The security system has activated, and the elevator is now locked.\n";
             continueExaminingV = false;
-            ZOOrkEngine::instance().requestRestart();
+            ZOOrkEngine::instance().handleRestart();
         }
     }
 }

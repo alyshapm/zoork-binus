@@ -11,7 +11,7 @@ void Lobby::handleExamine(const std::string& object) const {
     else if (object == "floor") {
         std::cout << "You look around and see a flashlight at your reach...\n";
     }
-    else if (object == "smoke") {
+    else if (object == "smoke" || "gray wall") {
         if (smoke->isLocked()) {
             std::cout << "You can't go through without seeing what's on the other side, find a source of light.\n";
         } else {

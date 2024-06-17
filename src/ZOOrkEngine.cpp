@@ -93,11 +93,19 @@ void ZOOrkEngine::run() {
         } else {
             std::cout << "I don't understand that command.\n";
         }
+
+        if (restartRequested) {
+            break; // Exit the loop if restart is requested
+        }
     }
 }
 
-void ZOOrkEngine::requestRestart(std::shared_ptr<Room> start) {
-    handleRoomRestartCommand({}, start);
+bool ZOOrkEngine::isRestartRequested() const {
+    return restartRequested;
+}
+
+void ZOOrkEngine::requestRestart() {
+    restartRequested = true;
 }
 
 void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
@@ -107,9 +115,7 @@ void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
     std::string restartStr = makeLowercase(input);
 
     if (restartStr == "y" || restartStr == "yes") {
-        // Reset the game state
-        player->setCurrentRoom(startRoom.get());
-        player->getCurrentRoom()->enter();
+        requestRestart();
         player->reset();
     }
     else {
@@ -117,21 +123,12 @@ void ZOOrkEngine::handleRestartCommand(std::vector<std::string> arguments) {
     }
 }
 
-void ZOOrkEngine::handleRoomRestartCommand(std::vector<std::string> arguments, std::shared_ptr<Room> start) {
-    std::cout << "Restarting...\n> ";
-        // Reset the game state
-        // gameOver = false;
-        if (!start) {
-            start = startRoom;
-        }
-        player->setCurrentRoom(start.get());
-        player->getCurrentRoom()->enter();
+void ZOOrkEngine::handleRestart() {
+    std::cout << "The game will be restarted...\n> ";
+    requestRestart();
+    player->reset();
+}
 
-        for (const auto& item : player->getInventory()) {
-        player->getCurrentRoom()->addItem(item);
-        }
-        player->reset();
-}      
 
 void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
     if (arguments.empty()) {
@@ -386,13 +383,16 @@ void ZOOrkEngine::handleDrinkCommand(const std::vector<std::string> arguments) {
             player->addStatusEffect("Strength", "You are now able to do more things..");
             std::cout << "You have used the " << itemName << " and you now feel strong enough to even climb a mountain!\n";
             player->removeItem("Rise Potion");
-
-
         } else if (lowercaseItemName == "jkt48 potion") {
             player->addStatusEffect("Restore", "You are no longer weakened..");
             std::cout << "You have used the " << itemName << " and you have cleared your weakened!\n";
             player->removeStatusEffect("Weakened");
             player->removeItem("JKT48 Potion");
+        } else if (lowercaseItemName == "healing potion") {
+            player->setHealth(player->getMaxHealth());
+            std::cout << "You have used the " << itemName << " and all your bruises miraculously disappear!\n";
+            std::cout << "You feel lighter, as if all your injuries have healed!\n";
+            player->removeItem("Healing Potion");
         }
 
     } else {
@@ -433,9 +433,8 @@ void ZOOrkEngine::handleDeathCommand() {
 
         if (lowerInput == "restart" || lowerInput == "r") {
             std::cout << "Restarting the game...\n";
+            requestRestart();
             player->reset();
-
-            std::cout << "Game has been restarted. You are now back at the starting room.\n";
             break;
         } else if (lowerInput == "quit" || lowerInput == "q") {
             std::cout << "Are you sure you want to QUIT? (yes/no)\n> ";
@@ -469,11 +468,8 @@ void ZOOrkEngine::handleGameOverCommand() {
 
         if (lowerInput == "restart" || lowerInput == "r") {
             std::cout << "Restarting the game...\n";
-            player->setCurrentRoom(startRoom.get());
-            player->getCurrentRoom()->enter();
+            requestRestart();
             player->reset();
-
-            std::cout << "Game has been restarted. You are now back at the starting room.\n";
             break;
         } else if (lowerInput == "quit" || lowerInput == "q") {
             std::cout << "Are you sure you want to QUIT? (yes/no)\n> ";

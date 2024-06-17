@@ -21,12 +21,15 @@ public:
 
     void run();
 
-    void requestRestart(std::shared_ptr<Room> start = nullptr);
+    void requestRestart();
+    bool isRestartRequested() const;
+    void handleRestart();
 
 private:
     Player* player;
     bool gameOver = false;
     std::shared_ptr<Room> startRoom;
+    bool restartRequested = false;
 
     void handleGoCommand(std::vector<std::string> arguments);
     void handleLookCommand(const std::vector<std::string>& arguments);
@@ -37,7 +40,6 @@ private:
     void handleReadCommand(std::vector<std::string> arguments);
     void handleTalkCommand(std::vector<std::string> arguments);
     void handleRestartCommand(std::vector<std::string> arguments);
-    void handleRoomRestartCommand(std::vector<std::string> arguments, std::shared_ptr<Room> start);
     void handleInventoryCommand();
     void handleInspectCommand(std::vector<std::string> arguments);
     void handleEquipCommand(const std::vector<std::string>& arguments);

@@ -20,7 +20,7 @@ public:
     }
 
 private:
-    mutable int remainingAttemptsTime = 5;
+    mutable int remainingAttemptsTime = 3;
     const std::string correctTime = "09:10:15";
     std::shared_ptr<Passage> lift;
 };
