@@ -383,13 +383,16 @@ void ZOOrkEngine::handleDrinkCommand(const std::vector<std::string> arguments) {
             player->addStatusEffect("Strength", "You are now able to do more things..");
             std::cout << "You have used the " << itemName << " and you now feel strong enough to even climb a mountain!\n";
             player->removeItem("Rise Potion");
-
-
         } else if (lowercaseItemName == "jkt48 potion") {
             player->addStatusEffect("Restore", "You are no longer weakened..");
             std::cout << "You have used the " << itemName << " and you have cleared your weakened!\n";
             player->removeStatusEffect("Weakened");
             player->removeItem("JKT48 Potion");
+        } else if (lowercaseItemName == "healing potion") {
+            player->setHealth(player->getMaxHealth());
+            std::cout << "You have used the " << itemName << " and all your bruises miraculously disappear!\n";
+            std::cout << "You feel lighter, as if all your injuries have healed!\n";
+            player->removeItem("Healing Potion");
         }
 
     } else {

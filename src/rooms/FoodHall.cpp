@@ -23,14 +23,21 @@ void FoodHall::handleTalk(const std::string &object) const
     if (object == "students" || object == "student")
     {
         std::cout << "'I hear the master of this place lives on the top floor, he awaits the one that is worth his challenge.'\n"
-        "'You should talk to the cashier Bob, he knows a way up.'\n";
-    }
-    else if (object == "cashier" || object == "Bob")
+        "You should talk to Franz, he knows better.\n";
+    } else if (object == "franz") 
     {
-        std::cout << "'Going up is your choice.'\n"
-        "'But be assured that the rumors that you have heard are true. Mr Z is awaiting...'\n"
-        "'To go up, head west.\n'"; 
-        "'Btw do you know the time?\n'";
+        std::cout << "He hands you a weird liquid... the label reads 'healing'.\n" 
+        "You might need it later.\n"
+        "You should talk to the cashier Bob, he knows a way up.\n";
+        std::shared_ptr<Item> potion = std::make_shared<Item>("Healing Potion", "It might be able to help you get over your injuries...", ItemType::POTION, 0);
+        addItem(potion);
+    }
+    else if (object == "cashier" || object == "bob")
+    {
+        std::cout << "Going up is your choice.\n"
+        "But be assured that the rumors that you have heard are true. Mr Z is awaiting...\n"
+        "To go up, head west.\n" 
+        "Btw do you know the time?\n";
     }
     else
     {

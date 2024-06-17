@@ -146,7 +146,7 @@ void FxB1::fightSecurityGuard() const {
             std::cout << "You have defeated the Security Guard!\n";
             std::shared_ptr<Item> taser = std::make_shared<Item>("Taser", "A small taser. Equipping it gives you a higher chance of hitting an attack (+1)", ItemType::WEAPON, 1);
             addItem(taser);
-            std::cout << "The enemy drops a keycard and a taser! You use the card to unlock the steel door.\n";
+            std::cout << "The enemy drops a keycard and a taser! You use the card to unlock the steel door. You can now go up.\n";
             steelDoor->unlock();
             enemyDefeated = true;
         }

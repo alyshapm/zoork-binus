@@ -96,7 +96,10 @@ void RockClimbing::handleClimbWall() const
         std::cout << "'I told you to be prepared,' they say. 'Come back when you're ready.'\n";
         std::this_thread::sleep_for(std::chrono::seconds(time));
 
-        std::cout << "You'll need more strength, might you find a booster somewhere...\n";
+        std::cout << "You'll need more strength, might you find a liquid booster somewhere...\n";
+
+        std::cout << "You take 3 damage...\n";
+        player->takeDamage(3);
         return;
     }
 }
